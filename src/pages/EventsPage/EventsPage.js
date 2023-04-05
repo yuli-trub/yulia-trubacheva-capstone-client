@@ -5,8 +5,9 @@ import axios from "axios";
 const EventsPage = ({ BACKEND_URL }) => {
   const [events, setEvents] = useState(null);
   const [locations, setLocations] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
-  // Get all profiles
+  // Get all events
   const getEvents = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/api/events`);
     setEvents(data);
@@ -49,19 +50,31 @@ const EventsPage = ({ BACKEND_URL }) => {
   return (
     <>
       {locations.map((location) => {
+        const locationEvents = events.filter(
+          (event) => event.location === location.city
+        );
+        const isLocationSelected = selectedLocation === location.city;
         return (
           <div className="location">
-            <h2 className="location__title">{location.city}</h2>
-            {events.map((event) => {
-              if (event.location === location.city) {
-                return (
-                  <div className="event">
-                    <h3 className="event__name">{event.name}</h3>
-                    <p className="event__date">{formatDate(event.date)}</p>
-                  </div>
-                );
+            <h2
+              className="location__title"
+              onClick={() =>
+                setSelectedLocation(isLocationSelected ? null : location.city)
               }
-            })}
+            >
+              {location.city}
+            </h2>
+            {isLocationSelected &&
+              locationEvents.map((event) => {
+                if (event.location === location.city) {
+                  return (
+                    <div className="event">
+                      <h3 className="event__name">{event.name}</h3>
+                      <p className="event__date">{formatDate(event.date)}</p>
+                    </div>
+                  );
+                }
+              })}
           </div>
         );
       })}
