@@ -47,12 +47,34 @@ const SwipeCard = ({
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+    });
+  };
+
+  const startDate = formatDate(profile.start_date);
+  const endDate = formatDate(profile.end_date);
   return (
     <TinderCard
       className="react-tinder-card"
       onSwipe={(direction) => onSwipe(direction, profile.id)}
     >
-      <div className="card">{profile.name}</div>
+      <div className="card">
+        <img src={profile.avatar} alt="avatar" className="card__avatar" />
+        <div className="card__info">
+          <h3 className="card__name">{profile.name}</h3>
+          <h3 className="card__age">{profile.age}</h3>
+        </div>
+        <div className="card__location-info">
+          <p className="card__location">{profile.location}</p>
+          <p className="card__dates">
+            {startDate} - {endDate}
+          </p>
+        </div>
+      </div>
     </TinderCard>
   );
 };
