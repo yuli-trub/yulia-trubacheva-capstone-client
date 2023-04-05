@@ -16,3 +16,12 @@
     transform: rotate(360deg);
   }
 }
+
+.swipe-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+  max-width: 400px;
+  margin: 0 auto;
+}

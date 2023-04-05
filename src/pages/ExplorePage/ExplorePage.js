@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./ExplorePage.scss";
 import "./ExplorePage.scss";
 import axios from "axios";
+import SwipeCard from "../../components/SwipeCard/SwipeCard";
 
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
@@ -25,25 +26,25 @@ const ExplorePage = ({ BACKEND_URL }) => {
   }, [profilesModified]);
 
   // Swiping left
-  const leftHandler = (profileId) => {
-    console.log(profileId);
-    const notFriend = async () => {
-      const { data } = await axios.put(
-        `${BACKEND_URL}/api/profiles/${profileId}`,
-        { isSwiped: 1 }
-      );
-      console.log(data);
-    };
+  // const leftHandler = (profileId) => {
+  //   console.log(profileId);
+  //   const notFriend = async () => {
+  //     const { data } = await axios.put(
+  //       `${BACKEND_URL}/api/profiles/${profileId}`,
+  //       { isSwiped: 1 }
+  //     );
+  //     console.log(data);
+  //   };
 
-    try {
-      notFriend();
-      setProfilesModified(true);
-      getProfiles();
-      console.log(profiles);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     notFriend();
+  //     setProfilesModified(true);
+  //     getProfiles();
+  //     console.log(profiles);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // Swiping right
   const rightHandler = (profileId) => {
@@ -73,7 +74,7 @@ const ExplorePage = ({ BACKEND_URL }) => {
 
   return (
     <>
-      {profiles.map((profile) => {
+      {/* {profiles.map((profile) => {
         return (
           <>
             <p
@@ -93,7 +94,18 @@ const ExplorePage = ({ BACKEND_URL }) => {
             </p>
           </>
         );
-      })}
+      })} */}
+      <div className="swipe-cards">
+        {profiles.map((profile) => (
+          <SwipeCard
+            key={profile.id}
+            profile={profile}
+            setProfilesModified={setProfilesModified}
+            getProfiles={getProfiles}
+            BACKEND_URL={BACKEND_URL}
+          />
+        ))}
+      </div>
     </>
   );
 };
