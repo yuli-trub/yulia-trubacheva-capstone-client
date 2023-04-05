@@ -1,7 +1,9 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const EventModal = ({ event, BACKEND_URL }) => {
+  const [isSaved, setIsSaved] = useState(false);
+
   console.log(event.id);
   console.log(`${BACKEND_URL}/api/events/${event.id}`);
   const saveEvent = async () => {
@@ -13,6 +15,7 @@ const EventModal = ({ event, BACKEND_URL }) => {
         }
       );
       console.log(data);
+      setIsSaved(true);
     } catch (error) {
       console.log(error);
     }
@@ -27,6 +30,7 @@ const EventModal = ({ event, BACKEND_URL }) => {
         }
       );
       console.log(data);
+      setIsSaved(false);
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +41,7 @@ const EventModal = ({ event, BACKEND_URL }) => {
       <h2 className="event__title">{event.name}</h2>
       <p className="event__description">{event.description}</p>
       <p className="event__date">{event.date}</p>
-      {!event.isSaved ? (
+      {!isSaved ? (
         <p className="event__save" onClick={saveEvent}>
           Save
         </p>
