@@ -54,13 +54,22 @@ function App() {
         />
         <Route
           path="/profile"
-          element={<ProfilePage BACKEND_URL={BACKEND_URL} />}
+          element={
+            <ProfilePage
+              BACKEND_URL={BACKEND_URL}
+              handleLogout={handleLogout}
+            />
+          }
         >
           <Route
             path="/profile/events"
             element={<SavedEvents BACKEND_URL={BACKEND_URL} />}
           />
-          // <Route path="/profile/friends" element={<UserFriends />} />
+          //{" "}
+          <Route
+            path="/profile/friends"
+            element={<UserFriends BACKEND_URL={BACKEND_URL} />}
+          />
         </Route>
 
         <Route
