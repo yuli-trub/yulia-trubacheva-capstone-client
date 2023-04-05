@@ -32,11 +32,39 @@ const EventsPage = ({ BACKEND_URL }) => {
       console.log(error);
     }
   }, []);
+
+  // Loading
+  if (!events && !locations) {
+    return <div className="loader"></div>;
+  }
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+    });
+  };
+
   return (
     <>
-      <div className="location">
-        <h2 className="location__title">{}</h2>
-      </div>
+      {locations.map((location) => {
+        return (
+          <div className="location">
+            <h2 className="location__title">{location.city}</h2>
+            {events.map((event) => {
+              if (event.location === location.city) {
+                return (
+                  <div className="event">
+                    <h3 className="event__name">{event.name}</h3>
+                    <p className="event__date">{formatDate(event.date)}</p>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        );
+      })}
     </>
   );
 };
