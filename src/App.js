@@ -9,7 +9,10 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<ExplorePage BACKEND_URL={BACKEND_URL} />} />
+        <Route
+          path="/explore"
+          element={<ExplorePage BACKEND_URL={BACKEND_URL} />}
+        />
         {/* <Route path="/about" element={<AboutPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/profile" element={<ProfilePage />}>
