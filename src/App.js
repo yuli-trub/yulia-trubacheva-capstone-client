@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import LoginForm from "./components/LoginForm/LoginForm";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import EventsPage from "./pages/EventsPage/EventsPage";
 
 function App() {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -60,9 +61,12 @@ function App() {
           path="/explore"
           element={<ExplorePage BACKEND_URL={BACKEND_URL} />}
         />
-        {/* <Route path="/about" element={<AboutPage />} />
-        <Route path="/events" element={<EventsPage />} />
-        {/* <Footer /> */}
+        {/* <Route path="/about" element={<AboutPage />} /> */}
+        <Route
+          path="/events"
+          element={<EventsPage BACKEND_URL={BACKEND_URL} />}
+        />
+        {/* {/* <Footer /> */}
       </Routes>
     </BrowserRouter>
   );
