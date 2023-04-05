@@ -7,6 +7,8 @@ import RegisterForm from "./components/RegisterForm/RegisterForm";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import EventsPage from "./pages/EventsPage/EventsPage";
 import EventModal from "./components/EventModal/EventModal";
+import SavedEvents from "./components/SavedEvents/SavedEvents";
+import UserFriends from "./components/UserFriends/UserFriends";
 
 function App() {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -54,8 +56,11 @@ function App() {
           path="/profile"
           element={<ProfilePage BACKEND_URL={BACKEND_URL} />}
         >
-          {/* <Route path="/profile/events" element={<UserEvents />} />
-          <Route path="/profile/friends" element={<UserFriends />} /> */}
+          <Route
+            path="/profile/events"
+            element={<SavedEvents BACKEND_URL={BACKEND_URL} />}
+          />
+          // <Route path="/profile/friends" element={<UserFriends />} />
         </Route>
 
         <Route

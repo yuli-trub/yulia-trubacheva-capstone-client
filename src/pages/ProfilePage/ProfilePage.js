@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet, Route } from "react-router-dom";
+import SavedEvents from "../../components/SavedEvents/SavedEvents";
 
 const Profile = ({ handleLogout, BACKEND_URL }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,20 +29,24 @@ const Profile = ({ handleLogout, BACKEND_URL }) => {
   }, [handleLogout]);
 
   return (
-    <div>
-      {isLoading && <h1>Loading...</h1>}
-      {!isLoading && (
-        <>
-          <h1>Welcome {userData.name}</h1>
-          <h2>Your Profile:</h2>
-          <p>Email: {userData.email}</p>
-          <p>age: {userData.age}</p>
-          <p>Bio: {userData.bio}</p>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      )}
+    <>
+      <div>
+        {isLoading && <h1>Loading...</h1>}
+        {!isLoading && (
+          <>
+            <h1>Welcome {userData.name}</h1>
+            <h2>Your Profile:</h2>
+            <p>Email: {userData.email}</p>
+            <p>age: {userData.age}</p>
+            <p>Bio: {userData.bio}</p>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        )}
+      </div>
+      <NavLink to="/profile/friends">Friends</NavLink>
+      <NavLink to="/profile/events">Events</NavLink>
       <Outlet />
-    </div>
+    </>
   );
 };
 
