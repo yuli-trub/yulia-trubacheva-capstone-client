@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import "./EventsPage.scss";
 import axios from "axios";
+import EventModal from "../../components/EventModal/EventModal";
 
 const EventsPage = ({ BACKEND_URL }) => {
   const [events, setEvents] = useState(null);
   const [locations, setLocations] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [modalShown, setModalShown] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   // Get all events
   const getEvents = async () => {
@@ -47,37 +50,55 @@ const EventsPage = ({ BACKEND_URL }) => {
     });
   };
 
+  // Modal
+
+  const modalHandler = (eventId) => {
+    setModalShown(true);
+    const chosenEvent = events.find((event) => event.id === eventId);
+    setSelectedEvent(chosenEvent);
+  };
+
   return (
     <>
-      {locations.map((location) => {
-        const locationEvents = events.filter(
-          (event) => event.location === location.city
-        );
-        const isLocationSelected = selectedLocation === location.city;
-        return (
-          <div className="location">
-            <h2
-              className="location__title"
-              onClick={() =>
-                setSelectedLocation(isLocationSelected ? null : location.city)
-              }
-            >
-              {location.city}
-            </h2>
-            {isLocationSelected &&
-              locationEvents.map((event) => {
-                if (event.location === location.city) {
-                  return (
-                    <div className="event">
-                      <h3 className="event__name">{event.name}</h3>
-                      <p className="event__date">{formatDate(event.date)}</p>
-                    </div>
-                  );
+      <div className="events__wrap">
+        {locations.map((location) => {
+          const locationEvents = events.filter(
+            (event) => event.location === location.city
+          );
+          const isLocationSelected = selectedLocation === location.city;
+          return (
+            <div className="location">
+              <h2
+                className="location__title"
+                onClick={() =>
+                  setSelectedLocation(isLocationSelected ? null : location.city)
                 }
-              })}
-          </div>
-        );
-      })}
+              >
+                {location.city}
+              </h2>
+              {isLocationSelected &&
+                locationEvents.map((event) => {
+                  if (event.location === location.city) {
+                    return (
+                      <div
+                        className="event"
+                        onClick={() => {
+                          modalHandler(event.id);
+                        }}
+                      >
+                        <h3 className="event__name">{event.name}</h3>
+                        <p className="event__date">{formatDate(event.date)}</p>
+                      </div>
+                    );
+                  }
+                })}
+            </div>
+          );
+        })}
+      </div>
+      {modalShown && (
+        <EventModal BACKEND_URL={BACKEND_URL} event={selectedEvent} />
+      )}
     </>
   );
 };
