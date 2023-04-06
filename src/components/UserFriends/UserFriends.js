@@ -1,13 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import ProfileModal from "../ProfileModal/ProfileModal";
 
 const UserFriends = ({ BACKEND_URL }) => {
   const [savedFriends, setSavedFriends] = useState(null);
+  const [friendModalShown, setFriendModalShown] = useState(false);
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
   const getSavedFriends = async () => {
-    const { data } = await axios(`${BACKEND_URL}/api/profiles/`);
-    const userFriends = data.filter((profile) => profile.isFriend === 1);
-    setSavedFriends(userFriends);
+    const authToken = sessionStorage.getItem("authToken");
+
+    const { data } = await axios.get(`${BACKEND_URL}/api/users/profile`, {
+      headers: {
+        authorisation: `Bearer ${authToken}`,
+      },
+    });
+    setSavedFriends(data.friends);
   };
 
   useEffect(() => {
@@ -18,16 +26,38 @@ const UserFriends = ({ BACKEND_URL }) => {
     }
   }, []);
 
+  // Modal
+
+  const modalHandler = (eventId) => {
+    setFriendModalShown(true);
+    const chosenFriend = savedFriends.find((event) => event.id === eventId);
+    setSelectedFriend(chosenFriend);
+  };
+
   if (!savedFriends) {
     return <p>Loading</p>;
   }
 
   return (
-    <div className="friends">
-      {savedFriends.map((friend) => {
-        return <p className="friend__name">{friend.name}</p>;
-      })}
-    </div>
+    <>
+      <div className="friends">
+        {savedFriends.map((friend) => {
+          return (
+            <p
+              className="friend__name"
+              onClick={() => {
+                modalHandler(friend.id);
+              }}
+            >
+              {friend.name}
+            </p>
+          );
+        })}
+      </div>
+      {friendModalShown && (
+        <ProfileModal BACKEND_URL={BACKEND_URL} profile={selectedFriend} />
+      )}
+    </>
   );
 };
 

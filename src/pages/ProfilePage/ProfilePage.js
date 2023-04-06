@@ -28,17 +28,19 @@ const Profile = ({ handleLogout, BACKEND_URL }) => {
     getUserData();
   }, [handleLogout]);
 
+  console.log(userData);
+
   return (
     <>
       <div>
         {isLoading && <h1>Loading...</h1>}
         {!isLoading && (
           <>
-            <h1>Welcome {userData.name}</h1>
+            <h1>Welcome {userData.user.name}</h1>
             <h2>Your Profile:</h2>
-            <p>Email: {userData.email}</p>
-            <p>age: {userData.age}</p>
-            <p>Bio: {userData.bio}</p>
+            <p>Email: {userData.user.email}</p>
+            <p>age: {userData.user.age}</p>
+            <p>Bio: {userData.user.bio}</p>
             <button onClick={handleLogout}>Logout</button>
           </>
         )}

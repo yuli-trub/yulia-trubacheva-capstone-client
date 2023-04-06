@@ -9,6 +9,8 @@ const EventsPage = ({ BACKEND_URL }) => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [modalShown, setModalShown] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [eventWasSaved, setEventWasSaved] = useState(false);
+  const [test, setTest] = useState("test");
 
   // Get all events
   const getEvents = async () => {
@@ -19,10 +21,11 @@ const EventsPage = ({ BACKEND_URL }) => {
   useEffect(() => {
     try {
       getEvents();
+      setEventWasSaved(false);
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [eventWasSaved]);
 
   //Get all locations
   const getLocations = async () => {
@@ -36,11 +39,6 @@ const EventsPage = ({ BACKEND_URL }) => {
       console.log(error);
     }
   }, []);
-
-  // Loading
-  if (!events && !locations) {
-    return <div className="loader"></div>;
-  }
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -58,46 +56,62 @@ const EventsPage = ({ BACKEND_URL }) => {
     setSelectedEvent(chosenEvent);
   };
 
+  // Loading
+  if (!events && !locations) {
+    return <div className="loader"></div>;
+  }
+
   return (
     <>
       <div className="events__wrap">
-        {locations.map((location) => {
-          const locationEvents = events.filter(
-            (event) => event.location === location.city
-          );
-          const isLocationSelected = selectedLocation === location.city;
-          return (
-            <div className="location">
-              <h2
-                className="location__title"
-                onClick={() =>
-                  setSelectedLocation(isLocationSelected ? null : location.city)
-                }
-              >
-                {location.city}
-              </h2>
-              {isLocationSelected &&
-                locationEvents.map((event) => {
-                  if (event.location === location.city) {
-                    return (
-                      <div
-                        className="event"
-                        onClick={() => {
-                          modalHandler(event.id);
-                        }}
-                      >
-                        <h3 className="event__name">{event.name}</h3>
-                        <p className="event__date">{formatDate(event.date)}</p>
-                      </div>
-                    );
+        {locations &&
+          events &&
+          locations.map((location) => {
+            const locationEvents = events.filter(
+              (event) => event.location === location.city
+            );
+            const isLocationSelected = selectedLocation === location.city;
+            return (
+              <div className="location">
+                <h2
+                  className="location__title"
+                  onClick={() =>
+                    setSelectedLocation(
+                      isLocationSelected ? null : location.city
+                    )
                   }
-                })}
-            </div>
-          );
-        })}
+                >
+                  {location.city}
+                </h2>
+                {isLocationSelected &&
+                  locationEvents.map((event) => {
+                    if (event.location === location.city) {
+                      return (
+                        <div
+                          className="event"
+                          onClick={() => {
+                            modalHandler(event.id);
+                          }}
+                        >
+                          <h3 className="event__name">{event.name}</h3>
+                          <p className="event__date">
+                            {formatDate(event.date)}
+                          </p>
+                        </div>
+                      );
+                    }
+                  })}
+              </div>
+            );
+          })}
       </div>
       {modalShown && (
-        <EventModal BACKEND_URL={BACKEND_URL} event={selectedEvent} />
+        <EventModal
+          BACKEND_URL={BACKEND_URL}
+          event={selectedEvent}
+          setEventWasSaved={setEventWasSaved}
+          events={events}
+        />
       )}
     </>
   );

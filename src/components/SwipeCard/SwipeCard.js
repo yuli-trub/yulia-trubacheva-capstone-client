@@ -6,7 +6,7 @@ const SwipeCard = ({
   profile,
   BACKEND_URL,
   getProfiles,
-  setProfilesModified,
+  // setProfilesModified,
 }) => {
   const onSwipe = (direction, profileId) => {
     console.log(profileId);
@@ -18,13 +18,14 @@ const SwipeCard = ({
           `${BACKEND_URL}/api/profiles/${profileId}`,
           { isSwiped: 1 }
         );
+
         console.log(data);
       };
 
       try {
         notFriend();
-        setProfilesModified(true);
-        getProfiles();
+        // setProfilesModified(true);
+        // getProfiles();
       } catch (error) {
         console.log(error);
       }
@@ -34,13 +35,29 @@ const SwipeCard = ({
           `${BACKEND_URL}/api/profiles/${profileId}`,
           { isSwiped: 1, isFriend: 1 }
         );
+
         console.log(data);
+      };
+
+      const isUserFriend = async () => {
+        const authToken = sessionStorage.getItem("authToken");
+        console.log(authToken);
+        await axios.post(
+          `${BACKEND_URL}/api/users/friends/${profileId}`,
+          null,
+          {
+            headers: {
+              authorisation: `Bearer ${authToken}`,
+            },
+          }
+        );
       };
 
       try {
         isFriend();
-        setProfilesModified(true);
-        getProfiles();
+        isUserFriend();
+        // setProfilesModified(true);
+        // getProfiles();
       } catch (error) {
         console.log(error);
       }

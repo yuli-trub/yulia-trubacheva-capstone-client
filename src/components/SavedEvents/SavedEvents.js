@@ -5,9 +5,14 @@ const SavedEvents = ({ BACKEND_URL }) => {
   const [savedEvents, setSavedEvents] = useState(null);
 
   const getSavedEvents = async () => {
-    const { data } = await axios(`${BACKEND_URL}/api/events/`);
-    const userEvents = data.filter((event) => event.isSaved === 1);
-    setSavedEvents(userEvents);
+    const authToken = sessionStorage.getItem("authToken");
+
+    const { data } = await axios.get(`${BACKEND_URL}/api/users/profile`, {
+      headers: {
+        authorisation: `Bearer ${authToken}`,
+      },
+    });
+    setSavedEvents(data.events);
   };
 
   useEffect(() => {

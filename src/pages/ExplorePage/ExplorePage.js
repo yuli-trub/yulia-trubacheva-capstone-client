@@ -7,7 +7,7 @@ import SwipeCard from "../../components/SwipeCard/SwipeCard";
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
   const [filteredProfiles, setFilteredProfiles] = useState(null);
-  const [profilesModified, setProfilesModified] = useState(false);
+  // const [profilesModified, setProfilesModified] = useState(false);
   const [locations, setLocations] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [startDate, setStartDate] = useState(null);
@@ -18,16 +18,17 @@ const ExplorePage = ({ BACKEND_URL }) => {
     const { data } = await axios.get(`${BACKEND_URL}/api/profiles`);
     setProfiles(data);
     setFilteredProfiles(data);
-    setProfilesModified(false);
+    // setProfilesModified(false);
   };
 
+  // on mount useEffect
   useEffect(() => {
     try {
       getProfiles();
     } catch (error) {
       console.log(error);
     }
-  }, [profilesModified]);
+  }, []);
 
   //Get all locations
   const getLocations = async () => {
@@ -42,11 +43,6 @@ const ExplorePage = ({ BACKEND_URL }) => {
       console.log(error);
     }
   }, []);
-
-  // Loading
-  if (!profiles && !locations) {
-    return <div className="loader"></div>;
-  }
 
   //Filter by location
 
@@ -73,11 +69,12 @@ const ExplorePage = ({ BACKEND_URL }) => {
     console.log(
       `Selected filter option: ${location}, ${startDate}, ${endDate}`
     );
-
+    // initial filter
     let filteredProfiles = profiles.filter(
       (profile) => profile.location === location
     );
 
+    // second filter
     if (startDate && endDate) {
       filteredProfiles = filteredProfiles.filter((profile) => {
         const profileStartDate = profile.start_date.substring(0, 10);
@@ -90,8 +87,13 @@ const ExplorePage = ({ BACKEND_URL }) => {
     }
 
     setFilteredProfiles(filteredProfiles);
-    setProfilesModified(true);
+    // setProfilesModified(true);
   };
+
+  // Loading
+  if (!profiles && !locations && !filteredProfiles) {
+    return <div className="loader"></div>;
+  }
 
   return (
     <>
@@ -116,7 +118,7 @@ const ExplorePage = ({ BACKEND_URL }) => {
           <SwipeCard
             key={profile.id}
             profile={profile}
-            setProfilesModified={setProfilesModified}
+            // setProfilesModified={setProfilesModified}
             getProfiles={getProfiles}
             BACKEND_URL={BACKEND_URL}
           />

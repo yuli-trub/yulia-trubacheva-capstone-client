@@ -9,6 +9,7 @@ import EventsPage from "./pages/EventsPage/EventsPage";
 import EventModal from "./components/EventModal/EventModal";
 import SavedEvents from "./components/SavedEvents/SavedEvents";
 import UserFriends from "./components/UserFriends/UserFriends";
+import Navigation from "./components/Navigation/Navigation";
 
 function App() {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -82,8 +83,8 @@ function App() {
           element={<EventsPage BACKEND_URL={BACKEND_URL} />}
         />
         <Route path="/events/:id" element={<EventModal />} />
-        {/* {/* <Footer /> */}
       </Routes>
+      <Navigation />
     </BrowserRouter>
   );
 }
