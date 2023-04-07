@@ -10,6 +10,9 @@ import EventModal from "./components/EventModal/EventModal";
 import SavedEvents from "./components/SavedEvents/SavedEvents";
 import UserFriends from "./components/UserFriends/UserFriends";
 import Navigation from "./components/Navigation/Navigation";
+import HomePage from "./pages/HomePage/HomePage";
+import ChatPage from "./pages/ChatPage/ChatPage";
+import Chat from "./components/Chat/Chat";
 
 function App() {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -33,8 +36,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      <Header handleLogout={handleLogout} />
       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/chats" element={<ChatPage />} />
+        <Route path="/chat/:id" element={<Chat />} />
         <Route
           path="/register"
           element={
@@ -77,7 +83,6 @@ function App() {
           path="/explore"
           element={<ExplorePage BACKEND_URL={BACKEND_URL} />}
         />
-        {/* <Route path="/about" element={<AboutPage />} /> */}
         <Route
           path="/events"
           element={<EventsPage BACKEND_URL={BACKEND_URL} />}

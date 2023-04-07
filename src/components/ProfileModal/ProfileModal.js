@@ -33,9 +33,13 @@ const ProfileModal = ({ profile, BACKEND_URL }) => {
       <h2 className="profile__title">{profile.name}</h2>
       <p className="profile__description">{profile.description}</p>
       <p className="profile__date">{profile.date}</p>
-      <p className="profile__delete" onClick={deleteFriend}>
-        unfriend
-      </p>
+      {profile.isFriend ? (
+        <p className="profile__delete" onClick={deleteFriend}>
+          unfriend
+        </p>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

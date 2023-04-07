@@ -2,7 +2,7 @@ import axios from "axios";
 import "./SwipeCard.scss";
 import TinderCard from "react-tinder-card";
 
-const SwipeCard = ({ profile, BACKEND_URL }) => {
+const SwipeCard = ({ profile, BACKEND_URL, modalHandler }) => {
   const onSwipe = (direction, profileId) => {
     console.log(profileId);
 
@@ -89,7 +89,14 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
       className="react-tinder-card"
       onSwipe={(direction) => onSwipe(direction, profile.id)}
     >
-      <div className="card">
+      <div
+        className="card"
+        onClick={() => {
+          modalHandler(profile.id);
+          console.log(profile.id);
+          console.log("clicked");
+        }}
+      >
         <img src={profile.avatar} alt="avatar" className="card__avatar" />
         <div className="card__info">
           <h3 className="card__name">{profile.name}</h3>

@@ -3,22 +3,24 @@ import "./ExplorePage.scss";
 import "./ExplorePage.scss";
 import axios from "axios";
 import SwipeCard from "../../components/SwipeCard/SwipeCard";
+import ProfileModal from "../../components/ProfileModal/ProfileModal";
 
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
   const [filteredProfiles, setFilteredProfiles] = useState(null);
-  // const [profilesModified, setProfilesModified] = useState(false);
   const [locations, setLocations] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [profileModalShown, setProfileModalShown] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState(null);
 
   // Get all profiles
   const getProfiles = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/api/profiles`);
     setProfiles(data);
+    console.log(data);
     setFilteredProfiles(data);
-    // setProfilesModified(false);
   };
 
   // on mount useEffect
@@ -44,7 +46,14 @@ const ExplorePage = ({ BACKEND_URL }) => {
     }
   }, []);
 
-  //Filter by location
+  //Modal show
+  const modalHandler = (profileId) => {
+    const chosenProfile = profiles.find((profile) => profile.id === profileId);
+    setSelectedProfile(chosenProfile);
+    setProfileModalShown(true);
+  };
+
+  //Filter by location and date
 
   const handleSelectChange = (event) => {
     const location = event.target.value;
@@ -128,12 +137,15 @@ const ExplorePage = ({ BACKEND_URL }) => {
             <SwipeCard
               key={profile.id}
               profile={profile}
-              // setProfilesModified={setProfilesModified}
               getProfiles={getProfiles}
               BACKEND_URL={BACKEND_URL}
+              modalHandler={modalHandler}
             />
           ))}
       </div>
+      {profileModalShown && (
+        <ProfileModal profile={selectedProfile} BACKEND_URL={BACKEND_URL} />
+      )}
     </>
   );
 };
