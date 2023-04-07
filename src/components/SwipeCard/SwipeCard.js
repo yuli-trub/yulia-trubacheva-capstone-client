@@ -2,12 +2,7 @@ import axios from "axios";
 import "./SwipeCard.scss";
 import TinderCard from "react-tinder-card";
 
-const SwipeCard = ({
-  profile,
-  BACKEND_URL,
-  getProfiles,
-  // setProfilesModified,
-}) => {
+const SwipeCard = ({ profile, BACKEND_URL }) => {
   const onSwipe = (direction, profileId) => {
     console.log(profileId);
 
@@ -24,8 +19,6 @@ const SwipeCard = ({
 
       try {
         notFriend();
-        // setProfilesModified(true);
-        // getProfiles();
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +32,7 @@ const SwipeCard = ({
         console.log(data);
       };
 
-      const isUserFriend = async () => {
+      const saveFriend = async () => {
         const authToken = sessionStorage.getItem("authToken");
         console.log(authToken);
         await axios.post(
@@ -53,11 +46,28 @@ const SwipeCard = ({
         );
       };
 
+      const isUserFriend = async (profileId) => {
+        const authToken = sessionStorage.getItem("authToken");
+        console.log(authToken);
+
+        const { data: existingFriendship } = await axios.get(
+          `${BACKEND_URL}/api/users/friends/${profileId}`,
+          {
+            headers: {
+              authorisation: `Bearer ${authToken}`,
+            },
+          }
+        );
+
+        if (existingFriendship) {
+          console.log("The user is already a friend");
+          return;
+        }
+      };
       try {
-        isFriend();
         isUserFriend();
-        // setProfilesModified(true);
-        // getProfiles();
+        isFriend();
+        saveFriend();
       } catch (error) {
         console.log(error);
       }

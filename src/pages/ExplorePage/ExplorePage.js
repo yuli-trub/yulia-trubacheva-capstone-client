@@ -104,25 +104,35 @@ const ExplorePage = ({ BACKEND_URL }) => {
           className="filters__location"
         >
           <option value="">Select a location</option>
-          {locations.map((location) => (
-            <option key={location.id} value={location.city}>
-              {location.city}
-            </option>
-          ))}
+          {locations &&
+            locations.map((location) => (
+              <option key={location.id} value={location.city}>
+                {location.city}
+              </option>
+            ))}
         </select>
-        <input type="date" value={startDate} onChange={handleStartDateChange} />
-        <input type="date" value={endDate} onChange={handleEndDateChange} />
+        <input
+          type="date"
+          value={`select date ${startDate}`}
+          onChange={handleStartDateChange}
+        />
+        <input
+          type="date"
+          value={`select date ${endDate}`}
+          onChange={handleEndDateChange}
+        />
       </div>
       <div className="swipe-cards">
-        {filteredProfiles.map((profile) => (
-          <SwipeCard
-            key={profile.id}
-            profile={profile}
-            // setProfilesModified={setProfilesModified}
-            getProfiles={getProfiles}
-            BACKEND_URL={BACKEND_URL}
-          />
-        ))}
+        {filteredProfiles &&
+          filteredProfiles.map((profile) => (
+            <SwipeCard
+              key={profile.id}
+              profile={profile}
+              // setProfilesModified={setProfilesModified}
+              getProfiles={getProfiles}
+              BACKEND_URL={BACKEND_URL}
+            />
+          ))}
       </div>
     </>
   );

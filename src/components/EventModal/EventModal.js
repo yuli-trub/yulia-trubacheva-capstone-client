@@ -62,15 +62,6 @@ const EventModal = ({ event, BACKEND_URL, setEventWasSaved, events }) => {
       <h2 className="event__title">{updatedEvent.name}</h2>
       <p className="event__description">{updatedEvent.description}</p>
       <p className="event__date">{updatedEvent.date}</p>
-      {/* {!isSaved && !event.isSaved ? (
-        <p className="event__save" onClick={saveEvent}>
-          Save
-        </p>
-      ) : (
-        <p className="event__unsave" onClick={unsaveEvent}>
-          unSave
-        </p>
-      )} */}
       {!updatedEvent.isSaved ? (
         <p className="event__save" onClick={saveEvent}>
           Save
