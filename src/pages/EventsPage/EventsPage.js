@@ -10,7 +10,7 @@ const EventsPage = ({ BACKEND_URL }) => {
   const [modalShown, setModalShown] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [eventWasSaved, setEventWasSaved] = useState(false);
-  const [test, setTest] = useState("test");
+  const [searchLocation, setSearchLocation] = useState("");
 
   // Get all events
   const getEvents = async () => {
@@ -38,7 +38,7 @@ const EventsPage = ({ BACKEND_URL }) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [selectedLocation]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -46,6 +46,25 @@ const EventsPage = ({ BACKEND_URL }) => {
       day: "numeric",
       month: "short",
     });
+  };
+
+  // Search
+  const searchLocationHandler = async (location) => {
+    try {
+      if (!location) {
+        setSelectedLocation(null);
+        getEvents();
+      } else {
+        const { data } = await axios.get(`${BACKEND_URL}/api/events`);
+        const locationEvents = data.filter(
+          (event) => event.location === location
+        );
+        setEvents(locationEvents);
+        setSelectedLocation(location);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Modal
@@ -63,8 +82,18 @@ const EventsPage = ({ BACKEND_URL }) => {
 
   return (
     <>
+      <input
+        type="text"
+        placeholder="Enter a location"
+        value={searchLocation}
+        onChange={(e) => setSearchLocation(e.target.value)}
+      />
+      <button onClick={() => searchLocationHandler(searchLocation)}>
+        Search
+      </button>
       <div className="events__wrap">
-        {locations &&
+        {!searchLocation &&
+          locations &&
           events &&
           locations.map((location) => {
             const locationEvents = events.filter(
@@ -104,6 +133,23 @@ const EventsPage = ({ BACKEND_URL }) => {
               </div>
             );
           })}
+        {searchLocation && events && (
+          <div className="events__wrap">
+            {events.map((event) => {
+              return (
+                <div
+                  className="event"
+                  onClick={() => {
+                    modalHandler(event.id);
+                  }}
+                >
+                  <h3 className="event__name">{event.name}</h3>
+                  <p className="event__date">{formatDate(event.date)}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
       {modalShown && (
         <EventModal
