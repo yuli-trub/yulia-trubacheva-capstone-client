@@ -14,9 +14,14 @@ import HomePage from "./pages/HomePage/HomePage";
 import ChatPage from "./pages/ChatPage/ChatPage";
 import Chat from "./components/Chat/Chat";
 
-function App() {
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import io from "socket.io-client";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
+const socket = io.connect("http://localhost:8081", {
+  transports: ["websocket"],
+});
+
+function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -39,7 +44,10 @@ function App() {
       <Header handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/chats" element={<ChatPage />} />
+        <Route
+          path="/chats"
+          element={<ChatPage socket={socket} BACKEND_URL={BACKEND_URL} />}
+        />
         <Route path="/chat/:id" element={<Chat />} />
         <Route
           path="/register"
