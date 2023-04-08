@@ -36,6 +36,8 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
         bio: formData.bio,
       });
 
+      await axios.post(`${BACKEND_URL}/api/profile/resetColumn`, {});
+
       setIsRegistered(true);
       navigate("/login");
     } catch (error) {
