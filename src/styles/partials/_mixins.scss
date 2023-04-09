@@ -37,4 +37,30 @@
 //BUTTONS
 
 @mixin btn {
+  width: 100%;
+  font-size: 1.8rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  background-color: $primary-bg;
+  border: none;
+  margin: 2.4rem auto;
+  color: $light-text;
+  &:hover {
+    cursor: pointer;
+    background-color: $secondary-bg;
+  }
+}
+
+//INPUT
+
+@mixin input {
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  border: 1px $secondary-text solid;
+
+  &:active {
+    border: 1px $primary-bg solid;
+  }
 }

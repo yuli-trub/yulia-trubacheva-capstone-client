@@ -42,9 +42,9 @@ const LoginForm = ({ setIsLoggedIn, BACKEND_URL }) => {
 
   return (
     <>
-      <div className="login__container">
-        <h1 className="login__logo">Wonderly</h1>
-        <h2 className="login__slogan">Ready to start your next adventure?</h2>
+      <div className="logging__container">
+        <h1 className="logging__logo">Wonderly</h1>
+        <h2 className="logging__slogan">Ready to start your next adventure?</h2>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form__group">
             {/* <label htmlFor="email" className="form__label">
@@ -75,10 +75,10 @@ const LoginForm = ({ setIsLoggedIn, BACKEND_URL }) => {
           {errorMessage && <p className="form__error">{errorMessage}</p>}
           <button className="form__btn">Sign in</button>
         </form>
-        <div className="login__link-wrap">
-          <p className="login__que">Don't have an account?</p>
-          <Link to="/register" className="login__link">
-            <p className="login__signup">Sign up</p>
+        <div className="logging__link-wrap">
+          <p className="logging__que">Don't have an account?</p>
+          <Link to="/register" className="logging__link">
+            <p className="logging__signup">Sign up</p>
           </Link>
         </div>
       </div>
