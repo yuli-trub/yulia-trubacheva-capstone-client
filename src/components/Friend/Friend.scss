@@ -1,0 +1,22 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.friend {
+  &__wrap {
+    @include flex(center, center, column);
+    width: 100%;
+    padding: 0.8rem 0;
+  }
+  &__img {
+    border-radius: 50%;
+    width: 6.5rem;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+
+    height: 6.5rem;
+  }
+  &__name {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+}

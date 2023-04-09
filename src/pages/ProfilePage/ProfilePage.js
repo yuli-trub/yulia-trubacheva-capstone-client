@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { NavLink, Outlet, Route } from "react-router-dom";
+import { Link, NavLink, Outlet, Route } from "react-router-dom";
 import "./ProfilePage.scss";
 const Profile = ({ handleLogout, BACKEND_URL }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -77,9 +77,11 @@ const Profile = ({ handleLogout, BACKEND_URL }) => {
           </NavLink>
         </div>
         <Outlet />
-        <p className="profile__logout" onClick={handleLogout}>
-          Log out
-        </p>
+        <Link to="/" className="profile__log-link">
+          <p className="profile__logout" onClick={handleLogout}>
+            Log out
+          </p>
+        </Link>
       </div>
     </>
   );

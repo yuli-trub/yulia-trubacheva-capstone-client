@@ -1,11 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const EventModal = ({ event, BACKEND_URL, setEventWasSaved, events }) => {
+const EventModal = ({ BACKEND_URL, setSelectedEventWasSaved, events }) => {
   // const [isSaved, setIsSaved] = useState(false);
-  const eventId = event.id;
 
-  const updatedEvent = events.find((event) => event.id === eventId);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const { eventId } = useParams();
+
+  const getEventById = async () => {
+    const { data } = await axios.get(`${BACKEND_URL}/api/events/${eventId}`);
+    setSelectedEvent(data[0]);
+  };
+
+  useEffect(() => {
+    try {
+      getEventById();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const saveEvent = async () => {
     const saveUserEvent = async () => {
@@ -19,14 +33,15 @@ const EventModal = ({ event, BACKEND_URL, setEventWasSaved, events }) => {
     };
     try {
       const { data } = await axios.put(
-        `${BACKEND_URL}/api/events/${updatedEvent.id}`,
+        `${BACKEND_URL}/api/events/${selectedEvent.id}`,
         {
           isSaved: 1,
         }
       );
       console.log(data);
       saveUserEvent();
-      setEventWasSaved(true);
+      getEventById();
+      // setSelectedEventWasSaved(true);
     } catch (error) {
       console.log(error);
     }
@@ -44,34 +59,39 @@ const EventModal = ({ event, BACKEND_URL, setEventWasSaved, events }) => {
     };
     try {
       const { data } = await axios.put(
-        `${BACKEND_URL}/api/events/${updatedEvent.id}`,
+        `${BACKEND_URL}/api/events/${selectedEvent.id}`,
         {
           isSaved: 0,
         }
       );
-      console.log(data);
+
       deleteUserEvent();
-      setEventWasSaved(true);
+      // setSelectedEventWasSaved(true);
+      getEventById();
     } catch (error) {
       console.log(error);
     }
   };
-
+  console.log(selectedEvent);
   return (
-    <div className="event__wrap">
-      <h2 className="event__title">{updatedEvent.name}</h2>
-      <p className="event__description">{updatedEvent.description}</p>
-      <p className="event__date">{updatedEvent.date}</p>
-      {!updatedEvent.isSaved ? (
-        <p className="event__save" onClick={saveEvent}>
-          Save
-        </p>
-      ) : (
-        <p className="event__unsave" onClick={unsaveEvent}>
-          unSave
-        </p>
+    <>
+      {selectedEvent && (
+        <div className="event__wrap">
+          <h2 className="event__title">{selectedEvent.name}</h2>
+          <p className="event__description">{selectedEvent.description}</p>
+          <p className="event__date">{selectedEvent.date}</p>
+          {!selectedEvent.isSaved ? (
+            <p className="event__save" onClick={saveEvent}>
+              Save
+            </p>
+          ) : (
+            <p className="event__unsave" onClick={unsaveEvent}>
+              unSave
+            </p>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -24,6 +24,16 @@ const SwipeCard = ({ profile, BACKEND_URL, modalHandler }) => {
           `${BACKEND_URL}/api/profiles/${profileId}`,
           { isSwiped: 1, isFriend: 1 }
         );
+        const authToken = sessionStorage.getItem("authToken");
+        await axios.post(
+          `${BACKEND_URL}/api/users/friends/${profileId}`,
+          null,
+          {
+            headers: {
+              authorisation: `Bearer ${authToken}`,
+            },
+          }
+        );
       };
 
       const saveFriend = async () => {
@@ -42,16 +52,6 @@ const SwipeCard = ({ profile, BACKEND_URL, modalHandler }) => {
           console.log("The user is already a friend");
           return;
         }
-
-        await axios.post(
-          `${BACKEND_URL}/api/users/friends/${profileId}`,
-          null,
-          {
-            headers: {
-              authorisation: `Bearer ${authToken}`,
-            },
-          }
-        );
       };
 
       try {

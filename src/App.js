@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import ExplorePage from "./pages/ExplorePage/ExplorePage";
 import { useEffect, useState } from "react";
@@ -12,10 +12,10 @@ import UserFriends from "./components/UserFriends/UserFriends";
 import Navigation from "./components/Navigation/Navigation";
 import HomePage from "./pages/HomePage/HomePage";
 import ChatPage from "./pages/ChatPage/ChatPage";
-import Chat from "./components/Chat/Chat";
 import "./App.scss";
 
 import io from "socket.io-client";
+import ProfileModal from "./components/ProfileModal/ProfileModal";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const socket = io.connect("http://localhost:8081", {
@@ -38,6 +38,7 @@ function App() {
   const handleLogout = () => {
     sessionStorage.removeItem("authToken");
     setIsLoggedIn(false);
+    console.log("logged out");
   };
 
   return (
@@ -72,6 +73,10 @@ function App() {
           }
         />
         <Route
+          path="/events/:eventId"
+          element={<EventModal BACKEND_URL={BACKEND_URL} />}
+        />
+        <Route
           path="/profile"
           element={
             <ProfilePage
@@ -84,10 +89,13 @@ function App() {
             path="/profile/events"
             element={<SavedEvents BACKEND_URL={BACKEND_URL} />}
           />
-          //{" "}
           <Route
             path="/profile/friends"
             element={<UserFriends BACKEND_URL={BACKEND_URL} />}
+          />
+          <Route
+            path="/profile/friends/:friendId"
+            element={<ProfileModal BACKEND_URL={BACKEND_URL} />}
           />
         </Route>
 

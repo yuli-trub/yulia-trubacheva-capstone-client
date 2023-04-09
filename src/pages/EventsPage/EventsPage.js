@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./EventsPage.scss";
 import axios from "axios";
 import EventModal from "../../components/EventModal/EventModal";
+import { Link } from "react-router-dom";
 
 const EventsPage = ({ BACKEND_URL }) => {
   const [events, setEvents] = useState(null);
@@ -121,20 +122,22 @@ const EventsPage = ({ BACKEND_URL }) => {
                   locationEvents.map((event) => {
                     if (event.location === location.city) {
                       return (
-                        <div
-                          className="event"
-                          onClick={() => {
-                            modalHandler(event.id);
-                          }}
-                        >
-                          <div className="event__img"></div>
-                          <div className="event__info">
-                            <h3 className="event__name">{event.name}</h3>
-                            <p className="event__date">
-                              {formatDate(event.date)}
-                            </p>
+                        <Link to={`/events/${event.id}`}>
+                          <div
+                          // className="event"
+                          // onClick={() => {
+                          //   modalHandler(event.id);
+                          // }}
+                          >
+                            <div className="event__img"></div>
+                            <div className="event__info">
+                              <h3 className="event__name">{event.name}</h3>
+                              <p className="event__date">
+                                {formatDate(event.date)}
+                              </p>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       );
                     }
                   })}
@@ -145,31 +148,33 @@ const EventsPage = ({ BACKEND_URL }) => {
           <div className="events__wrap">
             {events.map((event) => {
               return (
-                <div
-                  className="event"
-                  onClick={() => {
-                    modalHandler(event.id);
-                  }}
-                >
-                  <div className="event__img"></div>
-                  <div className="event__info">
-                    <h3 className="event__name">{event.name}</h3>
-                    <p className="event__date">{formatDate(event.date)}</p>
+                <Link to={`/events/${event.id}`}>
+                  <div
+                    className="event"
+                    // onClick={() => {
+                    //   modalHandler(event.id);
+                    // }}
+                  >
+                    <div className="event__img"></div>
+                    <div className="event__info">
+                      <h3 className="event__name">{event.name}</h3>
+                      <p className="event__date">{formatDate(event.date)}</p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
         )}
       </div>
-      {modalShown && (
+      {/* {modalShown && (
         <EventModal
           BACKEND_URL={BACKEND_URL}
           event={selectedEvent}
           setEventWasSaved={setEventWasSaved}
           events={events}
         />
-      )}
+      )} */}
     </>
   );
 };

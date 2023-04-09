@@ -1,0 +1,15 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.friends {
+  @include flex(space-evenly, center, row);
+  flex-wrap: wrap;
+  padding: 1.6rem 0;
+
+  &__link {
+    text-decoration: none;
+    width: 33%;
+    color: $primary-text;
+  }
+}
