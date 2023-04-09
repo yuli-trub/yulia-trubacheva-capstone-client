@@ -39,7 +39,7 @@ const UserFriends = ({ BACKEND_URL }) => {
   };
 
   if (!savedFriends) {
-    return <p>Loading</p>;
+    return <p>You don't have any friends yet</p>;
   }
 
   return (

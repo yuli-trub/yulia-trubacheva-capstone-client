@@ -11,9 +11,13 @@
   z-index: 10;
 
   &__logo {
+    font-family: "Berkshire";
+    letter-spacing: 2.5px;
     color: $light-text;
+    font-size: 4.2rem;
     text-align: center;
     width: 100%;
     padding: 0;
+    margin: 0.8rem auto;
   }
 }

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, Route } from "react-router-dom";
-import SavedEvents from "../../components/SavedEvents/SavedEvents";
-
+import "./ProfilePage.scss";
 const Profile = ({ handleLogout, BACKEND_URL }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState({});
@@ -32,22 +31,56 @@ const Profile = ({ handleLogout, BACKEND_URL }) => {
 
   return (
     <>
-      <div>
-        {isLoading && <h1>Loading...</h1>}
+      <div className="profile">
+        {isLoading && <div className="loader"></div>}
         {!isLoading && (
           <>
-            <h1>Welcome {userData.user.name}</h1>
-            <h2>Your Profile:</h2>
-            <p>Email: {userData.user.email}</p>
-            <p>age: {userData.user.age}</p>
-            <p>Bio: {userData.user.bio}</p>
-            <button onClick={handleLogout}>Logout</button>
+            <div className="profile__data">
+              <div className="profile__img">
+                {/* <img src="#" alt="avatar" className="profile__avatar" /> */}
+                <div className="profile__avatar"></div>
+              </div>
+              <div className="profile__info">
+                {" "}
+                <h1 className="profile__name">
+                  {" "}
+                  {userData.user.name}, {userData.user.age}
+                </h1>
+                <p className="profile__info-piece">{userData.user.email}</p>
+                <div className="profile__info-wrap">
+                  <p className="profile__label"> BIO</p>
+                  <p className="profile__info-piece">
+                    {userData.user.bio ||
+                      "Please write something about yourself to share with the rest of the users and make new friends faster"}
+                  </p>
+                </div>{" "}
+              </div>
+            </div>
           </>
         )}
+        <div className="profile__links">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "profile__link profile__link--active" : "profile__link"
+            }
+            to="/profile/friends"
+          >
+            FRIENDS
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "profile__link profile__link--active" : "profile__link"
+            }
+            to="/profile/events"
+          >
+            EVENTS
+          </NavLink>
+        </div>
+        <Outlet />
+        <p className="profile__logout" onClick={handleLogout}>
+          Log out
+        </p>
       </div>
-      <NavLink to="/profile/friends">Friends</NavLink>
-      <NavLink to="/profile/events">Events</NavLink>
-      <Outlet />
     </>
   );
 };
