@@ -1,0 +1,88 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.login {
+  &__container {
+    @include flex(center, center, column);
+    background-color: $bg-light;
+    height: 100vh;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  &__logo {
+    font-size: 3.2rem;
+    margin: 0;
+  }
+  &__slogan {
+    font-size: 2rem;
+    margin: 1.6rem auto 2.4rem;
+    text-align: center;
+  }
+
+  &__link-wrap {
+    @include flex(center, center, row);
+    width: 100%;
+  }
+  &__que {
+    margin: 0;
+  }
+  &__link {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 0.8rem;
+  }
+  &__signup {
+    margin: 0;
+    color: $primary-bg;
+    font-weight: bold;
+    &:hover {
+      color: $secondary-bg;
+    }
+  }
+}
+
+.form {
+  margin: 4rem auto;
+  width: 100%;
+  padding: 0 1.6rem;
+
+  &__group {
+    width: 100%;
+    padding: 0.8rem 0;
+  }
+  &__label {
+  }
+  &__input {
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    border: 1px $secondary-text solid;
+
+    &:active {
+      border: 1px $primary-bg solid;
+    }
+  }
+  &__btn {
+    width: 100%;
+    font-size: 1.8rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    background-color: $primary-bg;
+    border: none;
+    margin: 2.4rem auto;
+    color: $light-text;
+    &:hover {
+      cursor: pointer;
+      background-color: $secondary-bg;
+    }
+  }
+  &__error {
+    color: $primary-highlight;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+}

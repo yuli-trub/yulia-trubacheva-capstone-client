@@ -1,0 +1,75 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.events {
+  width: 100%;
+
+  &__search {
+    color: $primary-text;
+    height: 2rem;
+
+    border-radius: 0.7rem;
+    border: 1px solid $primary-bg;
+    outline: none;
+    padding: 0 1.6rem;
+
+    &::placeholder {
+      color: $secondary-text;
+    }
+
+    &:focus {
+      border: 1px solid $secondary-bg;
+    }
+
+    @include tablet {
+      height: 3.8rem;
+    }
+  }
+
+  &__wrap {
+    @include flex(flex-start, stretch, column);
+    height: 80vh;
+    scroll-behavior: smooth;
+    overflow: scroll;
+    background-color: $bg-light;
+  }
+}
+
+.location {
+  width: 100%;
+
+  padding: 0.5rem 0;
+
+  &__title {
+    border-bottom: 1px $secondary-bg solid;
+    padding: 0.5rem 1.6rem;
+  }
+}
+
+.event {
+  @include flex(space-between, flex-start, row);
+  margin: 1rem;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 0.6rem;
+
+  &__img {
+    width: 3rem;
+    height: 3rem;
+    background-color: $secondary-bg;
+    border-radius: 15px;
+  }
+  &__info {
+    @include flex(space-between, flex-start, column);
+    width: 70%;
+  }
+  &__name {
+    font-size: 1.2rem;
+  }
+  &__date {
+    color: $primary-bg;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}

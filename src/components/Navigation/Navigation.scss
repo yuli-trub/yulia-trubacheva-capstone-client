@@ -1,0 +1,30 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.nav-menu {
+  @include flex(space-between, center, row);
+  padding: 1rem 1.6rem;
+  background-color: $bg-light;
+  border-top: 2px $primary-bg;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+
+  &__item {
+    @include flex(center, center, row);
+    width: 3rem;
+    height: 2rem;
+    background-color: $primary-bg;
+    border-radius: 15px;
+    text-decoration: none;
+    // margin: 0 1rem;
+    &:hover {
+      background-color: $secondary-bg;
+    }
+  }
+}
+
+.active {
+  background-color: $secondary-bg;
+}

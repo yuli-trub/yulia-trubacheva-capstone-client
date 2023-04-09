@@ -1,0 +1,19 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.header {
+  @include flex(space-between, center, row);
+  background-color: $primary-bg;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  &__logo {
+    color: $light-text;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+  }
+}

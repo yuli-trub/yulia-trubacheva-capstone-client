@@ -1,13 +1,25 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "./Navigation.scss";
+import explore from "../../assets/icons/explore.svg";
 
 const Navigation = () => {
   return (
-    <div>
-      <Link to="/explore">EXPLORE</Link>
-      <Link to="/events">EVENTS</Link>
-      <Link to="/profile">PROFILE</Link>
-      <Link to="/about">ABOUT</Link>
-      <Link to="/chats">chats</Link>
+    <div className="nav-menu">
+      <NavLink className="nav-menu__item" to="/explore">
+        <img src={explore} alt="Explore" className="nac-menu__icon" />
+      </NavLink>
+      <NavLink className="nav-menu__item" to="/events">
+        <img src={explore} alt="Events" className="nac-menu__icon" />
+      </NavLink>
+      <NavLink className="nav-menu__item" to="/profile">
+        <img src={explore} alt="Chat" className="nac-menu__icon" />
+      </NavLink>
+      <NavLink className="nav-menu__item" to="/about">
+        <img src={explore} alt="Profile" className="nac-menu__icon" />
+      </NavLink>
+      <NavLink className="nav-menu__item" to="/chats">
+        <img src={explore} alt="About" className="nac-menu__icon" />
+      </NavLink>
     </div>
   );
 };

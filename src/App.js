@@ -13,6 +13,7 @@ import Navigation from "./components/Navigation/Navigation";
 import HomePage from "./pages/HomePage/HomePage";
 import ChatPage from "./pages/ChatPage/ChatPage";
 import Chat from "./components/Chat/Chat";
+import "./App.scss";
 
 import io from "socket.io-client";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;

@@ -1,0 +1,40 @@
+@use "./variables" as *;
+
+@mixin flex($justify: space-between, $align: center, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
+@mixin tablet {
+  @media screen and (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+
+@mixin general-padding {
+  padding: 0 1.6rem;
+
+  @include tablet {
+    padding: 0 3.6rem;
+  }
+}
+
+@mixin max-widths {
+  @include desktop {
+    max-width: $max-width-desktop;
+    margin: 0 auto;
+  }
+}
+
+//BUTTONS
+
+@mixin btn {
+}

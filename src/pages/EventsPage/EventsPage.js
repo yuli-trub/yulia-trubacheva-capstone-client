@@ -82,16 +82,21 @@ const EventsPage = ({ BACKEND_URL }) => {
 
   return (
     <>
-      <input
-        type="text"
-        placeholder="Enter a location"
-        value={searchLocation}
-        onChange={(e) => setSearchLocation(e.target.value)}
-      />
-      <button onClick={() => searchLocationHandler(searchLocation)}>
-        Search
-      </button>
       <div className="events__wrap">
+        <input
+          type="text"
+          placeholder="Enter a location"
+          value={searchLocation}
+          onChange={(e) => setSearchLocation(e.target.value)}
+          className="events__search
+        "
+          onKeyPress={(e) =>
+            e.key === "Enter" && searchLocationHandler(searchLocation)
+          }
+        />
+        <button onClick={() => searchLocationHandler(searchLocation)}>
+          Search
+        </button>
         {!searchLocation &&
           locations &&
           events &&
@@ -122,10 +127,13 @@ const EventsPage = ({ BACKEND_URL }) => {
                             modalHandler(event.id);
                           }}
                         >
-                          <h3 className="event__name">{event.name}</h3>
-                          <p className="event__date">
-                            {formatDate(event.date)}
-                          </p>
+                          <div className="event__img"></div>
+                          <div className="event__info">
+                            <h3 className="event__name">{event.name}</h3>
+                            <p className="event__date">
+                              {formatDate(event.date)}
+                            </p>
+                          </div>
                         </div>
                       );
                     }
@@ -143,8 +151,11 @@ const EventsPage = ({ BACKEND_URL }) => {
                     modalHandler(event.id);
                   }}
                 >
-                  <h3 className="event__name">{event.name}</h3>
-                  <p className="event__date">{formatDate(event.date)}</p>
+                  <div className="event__img"></div>
+                  <div className="event__info">
+                    <h3 className="event__name">{event.name}</h3>
+                    <p className="event__date">{formatDate(event.date)}</p>
+                  </div>
                 </div>
               );
             })}
