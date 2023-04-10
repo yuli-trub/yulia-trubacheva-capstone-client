@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./EventsPage.scss";
 import axios from "axios";
 import SavedEvent from "../../components/SavedEvent/SavedEvent";
+import search from "../../assets/icons/search.svg";
 
 const EventsPage = ({ BACKEND_URL }) => {
   const [events, setEvents] = useState(null);
@@ -80,7 +81,7 @@ const EventsPage = ({ BACKEND_URL }) => {
             className="search__btn"
             onClick={() => searchLocationHandler(searchLocation)}
           >
-            S
+            <img src={search} alt="search" className="search__icon" />
           </button>
         </section>
         {!searchLocation &&

@@ -5,23 +5,30 @@
 .nav-menu {
   @include flex(space-between, center, row);
   padding: 1rem 1.6rem;
-  background-color: $bg-light;
+  background-color: $primary-bg;
   border-top: 2px $primary-bg;
   position: sticky;
   bottom: 0;
   z-index: 10;
+  height: 20%;
 
   &__item {
     @include flex(center, center, row);
     width: 3rem;
-    height: 2rem;
+    height: 3rem;
     background-color: $primary-bg;
-    border-radius: 15px;
+    border-radius: 50%;
     text-decoration: none;
     // margin: 0 1rem;
+    text-align: center;
     &:hover {
       background-color: $secondary-bg;
     }
+  }
+
+  &__icon {
+    width: 100%;
+    height: 100%;
   }
 }
 

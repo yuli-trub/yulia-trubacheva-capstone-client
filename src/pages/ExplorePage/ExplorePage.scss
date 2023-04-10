@@ -84,15 +84,15 @@
   }
 
   &__label {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 
   &__date {
     @include input;
     font-family: "Poppins";
     // width: 50%;
-    font-size: 1.2rem;
-    margin: 0 0 2.4rem;
+    font-size: 1.1rem;
+    margin: 0 0 2rem;
     border-radius: 5px;
     color: $secondary-text;
 

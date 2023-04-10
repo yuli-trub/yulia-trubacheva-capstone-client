@@ -11,6 +11,11 @@ $max-width-desktop: 102rem;
 $primary-bg: #339999;
 $secondary-bg: #99cccc;
 $bg-light: #ffffff;
+$gradient-bg: radial-gradient(
+  circle,
+  rgba(153, 204, 204, 1) 0%,
+  rgba(51, 153, 153, 1) 100%
+);
 
 $primary-highlight: #993333;
 $secondary-highlight: #b77070;

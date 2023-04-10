@@ -2,6 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./EventModal.scss";
+import back from "../../assets/icons/back.svg";
+import heart from "../../assets/icons/heart.svg";
+import heart2 from "../../assets/icons/heart2.svg";
 
 const EventModal = ({ BACKEND_URL }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -83,9 +86,12 @@ const EventModal = ({ BACKEND_URL }) => {
       {selectedEvent && (
         <section className="event-modal__wrap">
           <div className="event-modal__navigate">
-            <p className="event-modal__arrow" onClick={navigateHandler}>
-              back
-            </p>
+            <img
+              src={back}
+              alt="back"
+              className="event-modal__arrow"
+              onClick={navigateHandler}
+            ></img>
           </div>
           <div className="event-modal__img-wrap">
             <img
@@ -105,13 +111,13 @@ const EventModal = ({ BACKEND_URL }) => {
             {selectedEvent.description}
           </p>
           {!selectedEvent.isSaved ? (
-            <p className="event-modal__action" onClick={saveEvent}>
-              Save
-            </p>
+            <div className="event-modal__action" onClick={saveEvent}>
+              <img src={heart} alt="save" className="event-modal__icon" />
+            </div>
           ) : (
-            <p className="event-modal__action" onClick={unsaveEvent}>
-              Delete
-            </p>
+            <div className="event-modal__action" onClick={unsaveEvent}>
+              <img src={heart2} alt="delete" className="event-modal__icon" />
+            </div>
           )}
         </section>
       )}

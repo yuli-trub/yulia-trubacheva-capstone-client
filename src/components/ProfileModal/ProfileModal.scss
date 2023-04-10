@@ -12,46 +12,69 @@
   height: 100%;
   z-index: 1000;
   @include flex(space-between, flex-start, column);
+
   &__navigate {
-    padding: 0.8rem 1.6rem;
+    padding: 1.6rem;
+    &:hover {
+      cursor: pointer;
+    }
   }
+
   &__arrow {
     height: 2rem;
+    width: 2rem;
   }
+
   &__img {
     width: 100%;
     padding: 0 1.6rem;
   }
+
   &__avatar {
     width: 100%;
     border-radius: 5px;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
   }
+
   &__info {
     padding: 1.6rem;
   }
-  &__top {
+
+  &__top-wrap {
     @include flex(space-between, baseline, row);
-    // border-bottom: 1px $secondary-bg solid;
   }
+  &__top {
+    @include flex(space-between, flex-start, column);
+  }
+
+  &__loc {
+    @include flex(space-between, flex-end, column);
+  }
+
   &__title {
-    margin: 0 0 1.6rem;
+    margin: 0;
     font-weight: 500;
     font-size: 2.4rem;
   }
+
   &__age {
     margin: 0;
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: 500;
   }
+
   &__location {
     color: $primary-bg;
     margin: 0;
+    font-size: 1.8rem;
   }
+
   &__date {
     color: $primary-bg;
     margin: 0;
+    margin-top: 0.4rem;
   }
+
   &__bio {
     margin: 2rem 0;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
@@ -69,6 +92,7 @@
     padding-bottom: 4rem;
     margin: 0;
   }
+
   &__interest {
     border-radius: 20px;
     background-color: $secondary-bg;
@@ -92,12 +116,19 @@
     margin-bottom: 1rem;
     // border-radius: 10px;
   }
+
   &__event-list {
     padding: 0 1.6rem;
     margin: 0;
   }
 
   &__delete {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &__action {
+    @include flex(center, center, row);
     border-radius: 50%;
     color: $light-text;
     background-color: $primary-bg;
@@ -105,21 +136,28 @@
     width: 4.5rem;
     position: absolute;
     right: 2.6rem;
-    top: 30rem;
+
     text-align: center;
     margin: 0;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+
+    &--message {
+      top: 23.5rem;
+    }
+    &--delete {
+      top: 29rem;
+    }
     &:hover {
       cursor: pointer;
       background-color: $secondary-bg;
     }
   }
 
-  &__message-link {
-  }
-
   &__message {
     @extend .profile-modal__delete;
     top: 24.5rem;
+    height: 5rem;
+    width: 5rem;
   }
 }

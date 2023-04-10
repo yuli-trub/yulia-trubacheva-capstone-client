@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Chat.scss";
+import send from "../../assets/icons/send.svg";
+import back from "../../assets/icons/back.svg";
 
 const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
   const [currentMessage, setCurrentMessage] = useState(null);
@@ -36,15 +38,16 @@ const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
       <section className="chat">
         <div className="chat__wrap">
           <div className="chat__header">
-            <p
+            <img
+              src={back}
+              alt="back"
               className="chat__back"
               onClick={() => {
                 navigate(-1);
                 setShowChat(false);
               }}
-            >
-              --
-            </p>
+            />
+
             <h2 className="chat__title">Chat</h2>
           </div>
           <div className="chat__body">
@@ -75,7 +78,7 @@ const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
               }}
             />
             <button className="chat__btn" onClick={sendMessage}>
-              send
+              <img src={send} alt="send" className="chat__icon" />
             </button>
           </div>
         </div>

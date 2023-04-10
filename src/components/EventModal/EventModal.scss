@@ -12,12 +12,17 @@
     width: 100%;
     height: 100%;
     z-index: 1000;
-    @include flex(center, flex-start, column);
-    padding: 0 1.6rem;
-
-    &__navigate {
-      padding: 0.8rem 1.6rem;
+    padding: 0 1.6rem 1.6rem;
+  }
+  &__navigate {
+    padding: 1.6rem 0;
+    &:hover {
+      cursor: pointer;
     }
+  }
+  &__arrow {
+    height: 2rem;
+    width: 2rem;
   }
 
   &__img-wrap {
@@ -58,6 +63,7 @@
     font-size: 1.2rem;
   }
   &__action {
+    @include flex(center, center, row);
     border-radius: 50%;
     color: $light-text;
     background-color: $primary-bg;
@@ -73,5 +79,10 @@
       cursor: pointer;
       background-color: $secondary-bg;
     }
+  }
+
+  &__icon {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

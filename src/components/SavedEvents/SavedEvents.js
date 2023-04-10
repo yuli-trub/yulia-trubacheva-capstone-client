@@ -33,7 +33,7 @@ const SavedEvents = ({ BACKEND_URL }) => {
     <>
       <div className="saved-events">
         {savedEvents.length === 0 && (
-          <p className="">No events to display yet</p>
+          <p className="saved-events__empty">No events to display yet</p>
         )}
         {savedEvents.map((event) => {
           return <SavedEvent event={event} key={event.id} />;

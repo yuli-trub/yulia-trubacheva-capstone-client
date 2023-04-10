@@ -3,12 +3,15 @@ import "./ProfileModal.scss";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SavedEvent from "../SavedEvent/SavedEvent";
+import unfriend from "../../assets/icons/delete.svg";
+import message from "../../assets/icons/message.svg";
+import back from "../../assets/icons/back.svg";
 
 const ProfileModal = ({ BACKEND_URL }) => {
   const { profileId } = useParams();
-  console.log(profileId);
   const [fullProfile, setFullProfile] = useState(null);
 
+  //GET FULL PROFILE
   const getFullProfile = async () => {
     const { data } = await axios.get(
       `${BACKEND_URL}/api/profiles/${profileId}`
@@ -22,6 +25,8 @@ const ProfileModal = ({ BACKEND_URL }) => {
       console.log(error);
     }
   }, []);
+
+  //DELETE FRIEND
   const deleteFriend = async () => {
     const deleteUserFriend = async () => {
       const authToken = sessionStorage.getItem("authToken");
@@ -49,6 +54,7 @@ const ProfileModal = ({ BACKEND_URL }) => {
     }
   };
 
+  //NAVIGATION
   const navigate = useNavigate();
 
   const navigateHandler = () => {
@@ -68,9 +74,12 @@ const ProfileModal = ({ BACKEND_URL }) => {
       {fullProfile && (
         <section className="profile-modal">
           <div className="profile-modal__navigate">
-            <p className="profile-modal__arrow" onClick={navigateHandler}>
-              back
-            </p>
+            <img
+              src={back}
+              alt="back"
+              className="profile-modal__arrow"
+              onClick={navigateHandler}
+            ></img>
           </div>
           <div className="profile-modal__img">
             <img
@@ -80,17 +89,20 @@ const ProfileModal = ({ BACKEND_URL }) => {
             />
           </div>
           <div className="profile-modal__info">
-            <div className="profile-modal__top">
-              <h2 className="profile-modal__title">{fullProfile.name}</h2>
-              <p className="profile-modal__age">{fullProfile.age}</p>
-            </div>
-            <div className="profile-modal__top">
-              <p className="profile-modal__location">{fullProfile.location}</p>
-
-              <p className="profile-modal__date">
-                {formatDate(fullProfile.start_date)} -{" "}
-                {formatDate(fullProfile.end_date)}
-              </p>
+            <div className="profile-modal__top-wrap">
+              <div className="profile-modal__top">
+                <h2 className="profile-modal__title">{fullProfile.name}</h2>
+                <p className="profile-modal__age">{fullProfile.age}</p>
+              </div>
+              <div className="profile-modal__loc">
+                <p className="profile-modal__location">
+                  {fullProfile.location}
+                </p>
+                <p className="profile-modal__date">
+                  {formatDate(fullProfile.start_date)} -{" "}
+                  {formatDate(fullProfile.end_date)}
+                </p>
+              </div>
             </div>
             <p className="profile-modal__bio">{fullProfile.bio}</p>
           </div>
@@ -128,14 +140,23 @@ const ProfileModal = ({ BACKEND_URL }) => {
           )}
           {fullProfile.isFriend ? (
             <>
-              <p className="profile-modal__delete" onClick={deleteFriend}>
-                D
-              </p>
+              <div className="profile-modal__action profile-modal__action--delete">
+                <img
+                  src={unfriend}
+                  onClick={deleteFriend}
+                  alt="unfriend"
+                  className="profile-modal__delete"
+                />
+              </div>
               <Link
                 to={`/chat/${profileId}`}
-                className="profile-modal__message-link"
+                className="profile-modal__action profile-modal__action--message"
               >
-                <p className="profile-modal__message">M</p>
+                <img
+                  src={message}
+                  alt="message"
+                  className="profile-modal__message"
+                />
               </Link>
             </>
           ) : (
