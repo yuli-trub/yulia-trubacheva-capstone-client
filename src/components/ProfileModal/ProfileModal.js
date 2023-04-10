@@ -30,7 +30,6 @@ const ProfileModal = ({ BACKEND_URL }) => {
   const deleteFriend = async () => {
     const deleteUserFriend = async () => {
       const authToken = sessionStorage.getItem("authToken");
-      console.log(authToken);
       await axios.delete(`${BACKEND_URL}/api/users/profiles/${profileId}`, {
         headers: {
           authorisation: `Bearer ${authToken}`,
@@ -45,7 +44,6 @@ const ProfileModal = ({ BACKEND_URL }) => {
           isFriend: 0,
         }
       );
-      console.log(data);
       deleteUserFriend();
       getFullProfile();
       navigate(-1);

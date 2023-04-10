@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import ExplorePage from "./pages/ExplorePage/ExplorePage";
 import { useEffect, useState } from "react";
@@ -48,7 +48,13 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route
           path="/chats"
-          element={<ChatPage socket={socket} BACKEND_URL={BACKEND_URL} />}
+          element={
+            <ChatPage
+              socket={socket}
+              BACKEND_URL={BACKEND_URL}
+              isLoggedIn={isLoggedIn}
+            />
+          }
         />
         <Route
           path="/chats/:id"
@@ -82,6 +88,7 @@ function App() {
             <ProfilePage
               BACKEND_URL={BACKEND_URL}
               handleLogout={handleLogout}
+              isLoggedIn={isLoggedIn}
             />
           }
         >

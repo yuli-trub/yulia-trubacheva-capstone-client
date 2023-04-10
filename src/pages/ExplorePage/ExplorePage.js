@@ -43,13 +43,6 @@ const ExplorePage = ({ BACKEND_URL }) => {
     }
   }, []);
 
-  //Modal show
-  // const modalHandler = (profileId) => {
-  //   const chosenProfile = profiles.find((profile) => profile.id === profileId);
-  //   setSelectedProfile(chosenProfile);
-  //   setProfileModalShown(true);
-  // };
-
   //Filter by location and date
 
   const handleSelectChange = (event) => {

@@ -17,7 +17,6 @@ const UserFriends = ({ BACKEND_URL }) => {
     const uniqueFriends = [
       ...new Set(data.friends.map((friend) => friend.id)),
     ].map((id) => data.friends.find((f) => f.id === id));
-    console.log(uniqueFriends);
     setSavedFriends(uniqueFriends);
   };
 

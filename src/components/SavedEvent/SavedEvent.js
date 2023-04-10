@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./SavedEvent.scss";
 
 const SavedEvent = ({ event }) => {
@@ -16,7 +16,7 @@ const SavedEvent = ({ event }) => {
         <div className="saved-event__img-wrap">
           <img
             src={event.event_img_url || event.image}
-            alt="Event image"
+            alt="Event"
             className="saved-event__img"
           />
         </div>

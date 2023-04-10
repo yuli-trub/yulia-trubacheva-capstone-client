@@ -8,10 +8,9 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
     if (direction === "left") {
       console.log("left");
       const notFriend = async () => {
-        const { data } = await axios.put(
-          `${BACKEND_URL}/api/profiles/${profileId}`,
-          { isSwiped: 1 }
-        );
+        await axios.put(`${BACKEND_URL}/api/profiles/${profileId}`, {
+          isSwiped: 1,
+        });
       };
 
       try {
@@ -21,10 +20,10 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
       }
     } else if (direction === "right") {
       const isFriend = async () => {
-        const { data } = await axios.put(
-          `${BACKEND_URL}/api/profiles/${profileId}`,
-          { isSwiped: 1, isFriend: 1 }
-        );
+        await axios.put(`${BACKEND_URL}/api/profiles/${profileId}`, {
+          isSwiped: 1,
+          isFriend: 1,
+        });
         const authToken = sessionStorage.getItem("authToken");
         await axios.post(
           `${BACKEND_URL}/api/users/friends/${profileId}`,

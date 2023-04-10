@@ -4,11 +4,12 @@ import Chat from "../../components/Chat/Chat";
 import { Link } from "react-router-dom";
 import "./ChatPage.scss";
 
-const ChatPage = ({ socket, BACKEND_URL }) => {
+const ChatPage = ({ socket, BACKEND_URL, isLoggedIn }) => {
   const [savedFriends, setSavedFriends] = useState(null);
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [showChat, setShowChat] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getSavedFriends = async () => {
     const authToken = sessionStorage.getItem("authToken");
@@ -49,41 +50,59 @@ const ChatPage = ({ socket, BACKEND_URL }) => {
 
   return (
     <>
-      <h3 className="chats__header">Messages</h3>
-      <ul className="chats__list">
-        {savedFriends &&
-          savedFriends.map((friend) => {
-            return (
-              <Link
-                to={`/chats/${friend.id}`}
-                className="chats__link"
-                key={friend.id}
-              >
-                <li className="friend" onClick={() => handleClick(friend.id)}>
-                  <div className="friend__img-wrap">
-                    <img
-                      src={friend.avatar_url}
-                      alt="Friend avatar"
-                      className="friend__img"
-                    />
-                  </div>
-                  <div className="friend__info-wrap">
-                    <h3 className="friend__name">{friend.name}</h3>
-                    <p className="friend__fake-msg">Hey! How are you doing?</p>
-                  </div>
-                </li>
-              </Link>
-            );
-          })}
-      </ul>
+      {!savedFriends && !isLoggedIn && (
+        <div className="profile__auth">
+          <h3 className="profile__warn">Not signed in</h3>
+          <Link to="/login" className="profile__signin">
+            <button className="profile__button">Sign in</button>
+          </Link>
+        </div>
+      )}
 
-      {showChat && (
-        <Chat
-          socket={socket}
-          selectedChatId={selectedChatId}
-          currentUser={currentUser}
-          setShowChat={setShowChat}
-        />
+      {isLoggedIn && (
+        <>
+          <h3 className="chats__header">Messages</h3>
+          <ul className="chats__list">
+            {savedFriends &&
+              savedFriends.map((friend) => {
+                return (
+                  <Link
+                    to={`/chats/${friend.id}`}
+                    className="chats__link"
+                    key={friend.id}
+                  >
+                    <li
+                      className="friend"
+                      onClick={() => handleClick(friend.id)}
+                    >
+                      <div className="friend__img-wrap">
+                        <img
+                          src={friend.avatar_url}
+                          alt="Friend avatar"
+                          className="friend__img"
+                        />
+                      </div>
+                      <div className="friend__info-wrap">
+                        <h3 className="friend__name">{friend.name}</h3>
+                        <p className="friend__fake-msg">
+                          Hey! How are you doing?
+                        </p>
+                      </div>
+                    </li>
+                  </Link>
+                );
+              })}
+          </ul>
+
+          {showChat && (
+            <Chat
+              socket={socket}
+              selectedChatId={selectedChatId}
+              currentUser={currentUser}
+              setShowChat={setShowChat}
+            />
+          )}
+        </>
       )}
     </>
   );

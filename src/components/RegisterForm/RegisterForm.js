@@ -15,7 +15,6 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
 
   const navigate = useNavigate();
 
-  // When any input changes, update the correct field in state
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -62,7 +61,6 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
         <h2 className="logging__slogan">Ready to start your next adventure?</h2>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form__group">
-            {/* <label htmlFor="name">First Name</label> */}
             <input
               className="form__input"
               placeholder="Name*"
@@ -74,7 +72,6 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
           </div>
 
           <div className="form__group">
-            {/* <label htmlFor="emailRegister">Email</label> */}
             <input
               className="form__input"
               placeholder="Email*"
@@ -85,7 +82,6 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
             />
           </div>
           <div className="form__group">
-            {/* <label htmlFor="passwordRegister">Password</label> */}
             <input
               className="form__input"
               placeholder="Password*"
@@ -96,7 +92,6 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
             />
           </div>
           <div className="form__group">
-            {/* <label htmlFor="age">age</label> */}
             <input
               className="form__input"
               placeholder="Age*"
@@ -106,17 +101,6 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
               onChange={(e) => handleChange(e)}
             />
           </div>
-          {/* <div className="form__group">
-            <label htmlFor="bio">bio</label>
-            <textarea
-              className="form__input"
-              placeholder="Write about yourself"
-              type="bio"
-              name="bio"
-              id="bio"
-              onChange={(e) => handleChange(e)}
-            />
-          </div> */}
           {errorMessage && <p className="form__error">{errorMessage}</p>}
           <button className="form__btn">Sign up</button>
         </form>

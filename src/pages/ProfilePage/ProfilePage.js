@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, Route } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import "./ProfilePage.scss";
-const Profile = ({ handleLogout, BACKEND_URL }) => {
+const Profile = ({ handleLogout, BACKEND_URL, isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState({});
 
@@ -32,7 +32,15 @@ const Profile = ({ handleLogout, BACKEND_URL }) => {
   return (
     <>
       <div className="profile">
-        {isLoading && <div className="loader"></div>}
+        {isLoading && isLoggedIn && <div className="loader"></div>}
+        {isLoading && !isLoggedIn && (
+          <div className="profile__auth">
+            <h3 className="profile__warn">Not signed in</h3>
+            <Link to="/login" className="profile__signin">
+              <button className="profile__button">Sign in</button>
+            </Link>
+          </div>
+        )}
         {!isLoading && (
           <>
             <div className="profile__data">
@@ -61,30 +69,38 @@ const Profile = ({ handleLogout, BACKEND_URL }) => {
             </div>
           </>
         )}
-        <div className="profile__links">
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "profile__link profile__link--active" : "profile__link"
-            }
-            to="/profile/friends"
-          >
-            FRIENDS
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "profile__link profile__link--active" : "profile__link"
-            }
-            to="/profile/events"
-          >
-            EVENTS
-          </NavLink>
-        </div>
+        {isLoggedIn && (
+          <div className="profile__links">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "profile__link profile__link--active"
+                  : "profile__link"
+              }
+              to="/profile/friends"
+            >
+              FRIENDS
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "profile__link profile__link--active"
+                  : "profile__link"
+              }
+              to="/profile/events"
+            >
+              EVENTS
+            </NavLink>
+          </div>
+        )}
         <Outlet />
-        <Link to="/" className="profile__log-link">
-          <p className="profile__logout" onClick={handleLogout}>
-            Log out
-          </p>
-        </Link>
+        {isLoggedIn && (
+          <Link to="/" className="profile__log-link">
+            <p className="profile__logout" onClick={handleLogout}>
+              Log out
+            </p>
+          </Link>
+        )}
       </div>
     </>
   );
