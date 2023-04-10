@@ -1,14 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ProfileModal from "../ProfileModal/ProfileModal";
 import Friend from "../Friend/Friend";
 import "./UserFriends.scss";
-import { Link } from "react-router-dom";
 
 const UserFriends = ({ BACKEND_URL }) => {
   const [savedFriends, setSavedFriends] = useState(null);
-  const [friendModalShown, setFriendModalShown] = useState(false);
-  const [selectedFriend, setSelectedFriend] = useState(null);
 
   const getSavedFriends = async () => {
     const authToken = sessionStorage.getItem("authToken");
@@ -33,39 +29,21 @@ const UserFriends = ({ BACKEND_URL }) => {
     }
   }, []);
 
-  // Modal
-
-  const modalHandler = (eventId) => {
-    setFriendModalShown(true);
-    const chosenFriend = savedFriends.find((event) => event.id === eventId);
-    setSelectedFriend(chosenFriend);
-    window.scrollTo(0, 0);
-  };
-
   if (!savedFriends) {
     return <p>Loading</p>;
   }
-  console.log(savedFriends);
+
   return (
     <>
       <div className="friends">
-        {savedFriends.length === 0 && <p className="">No friends</p>}
+        {savedFriends.length === 0 && (
+          <p className="">No friends to display yet</p>
+        )}
         {savedFriends &&
           savedFriends.map((friend) => {
-            return (
-              <Link to={`/profiles/${friend.id}`} className="friends__link">
-                <Friend friend={friend} modalHandler={modalHandler} />{" "}
-              </Link>
-            );
+            return <Friend friend={friend} key={friend.id} />;
           })}
       </div>
-      {/* {friendModalShown && (
-        <ProfileModal
-          BACKEND_URL={BACKEND_URL}
-          profile={selectedFriend}
-          setFriendModalShown={setFriendModalShown}
-        />
-      )} */}
     </>
   );
 };

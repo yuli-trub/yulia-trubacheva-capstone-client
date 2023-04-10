@@ -13,88 +13,79 @@
   background-color: #fff;
   transition: transform 0.3s ease-in-out;
 }
-.react-tinder-card--swipe-left {
-  transform: translateX(-100%) rotate(-30deg);
-}
-
-.react-tinder-card--swipe-right {
-  transform: translateX(100%) rotate(30deg);
-}
-
-.card__arrow {
-  position: absolute;
-  bottom: 0;
-
-  transform: translateY(-50%);
-  font-size: 2rem;
-  font-weight: bold;
-  background-color: #fff;
-}
-
-.card__arrow:hover {
-  opacity: 1;
-}
-
-.card__arrow--left {
-  left: 35%;
-}
-
-.card__arrow--right {
-  right: 35%;
-}
-
-.card__link {
-  display: block;
-  height: 100%;
-}
-
 .card {
   position: relative;
   height: 100%;
   overflow: hidden;
-}
 
-.card__avatar {
-  width: 100%;
-  height: 75%;
-  object-fit: cover;
-}
+  &__arrow {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #fff;
 
-.card__info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  color: $primary-text;
-}
+    &:hover {
+      opacity: 1;
+    }
 
-.card__name {
-  font-size: 2rem;
-  font-weight: 600;
-  margin: 0;
-}
+    &--left {
+      left: 35%;
+    }
 
-.card__age {
-  font-size: 1.2rem;
-  margin: 0;
-  font-weight: 600;
-}
+    &--right {
+      right: 35%;
+    }
+  }
 
-.card__location-info {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 1.6rem;
-  color: $primary-bg;
-  text-align: right;
-}
+  &__link {
+    display: block;
+    height: 100%;
+  }
 
-.card__location {
-  font-size: 1.5rem;
-  margin: 0;
-}
+  &__avatar {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+  }
 
-.card__dates {
-  font-size: 1.2rem;
-  margin: 0;
+  &__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    color: $primary-text;
+  }
+
+  &__name {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__age {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  &__location-info {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1.6rem;
+    color: $primary-bg;
+    text-align: right;
+  }
+
+  &__location {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  &__dates {
+    font-size: 1.2rem;
+    margin: 0;
+  }
 }

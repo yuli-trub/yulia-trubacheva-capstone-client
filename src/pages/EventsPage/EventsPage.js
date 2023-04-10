@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import "./EventsPage.scss";
 import axios from "axios";
-import EventModal from "../../components/EventModal/EventModal";
-import { Link } from "react-router-dom";
+import SavedEvent from "../../components/SavedEvent/SavedEvent";
 
 const EventsPage = ({ BACKEND_URL }) => {
   const [events, setEvents] = useState(null);
   const [locations, setLocations] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [modalShown, setModalShown] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
   const [eventWasSaved, setEventWasSaved] = useState(false);
   const [searchLocation, setSearchLocation] = useState("");
 
@@ -41,14 +38,6 @@ const EventsPage = ({ BACKEND_URL }) => {
     }
   }, [selectedLocation]);
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, {
-      day: "numeric",
-      month: "short",
-    });
-  };
-
   // Search
   const searchLocationHandler = async (location) => {
     try {
@@ -68,14 +57,6 @@ const EventsPage = ({ BACKEND_URL }) => {
     }
   };
 
-  // Modal
-
-  const modalHandler = (eventId) => {
-    setModalShown(true);
-    const chosenEvent = events.find((event) => event.id === eventId);
-    setSelectedEvent(chosenEvent);
-  };
-
   // Loading
   if (!events && !locations) {
     return <div className="loader"></div>;
@@ -83,21 +64,25 @@ const EventsPage = ({ BACKEND_URL }) => {
 
   return (
     <>
-      <div className="events__wrap">
-        <input
-          type="text"
-          placeholder="Enter a location"
-          value={searchLocation}
-          onChange={(e) => setSearchLocation(e.target.value)}
-          className="events__search
-        "
-          onKeyPress={(e) =>
-            e.key === "Enter" && searchLocationHandler(searchLocation)
-          }
-        />
-        <button onClick={() => searchLocationHandler(searchLocation)}>
-          Search
-        </button>
+      <main className="events__wrap">
+        <section className="search">
+          <input
+            type="text"
+            placeholder="Enter a location"
+            value={searchLocation}
+            onChange={(e) => setSearchLocation(e.target.value)}
+            className="search__input"
+            onKeyPress={(e) =>
+              e.key === "Enter" && searchLocationHandler(searchLocation)
+            }
+          />
+          <button
+            className="search__btn"
+            onClick={() => searchLocationHandler(searchLocation)}
+          >
+            S
+          </button>
+        </section>
         {!searchLocation &&
           locations &&
           events &&
@@ -107,7 +92,7 @@ const EventsPage = ({ BACKEND_URL }) => {
             );
             const isLocationSelected = selectedLocation === location.city;
             return (
-              <div className="location">
+              <article className="location">
                 <h2
                   className="location__title"
                   onClick={() =>
@@ -118,63 +103,27 @@ const EventsPage = ({ BACKEND_URL }) => {
                 >
                   {location.city}
                 </h2>
-                {isLocationSelected &&
-                  locationEvents.map((event) => {
-                    if (event.location === location.city) {
-                      return (
-                        <Link to={`/events/${event.id}`}>
-                          <div
-                          // className="event"
-                          // onClick={() => {
-                          //   modalHandler(event.id);
-                          // }}
-                          >
-                            <div className="event__img"></div>
-                            <div className="event__info">
-                              <h3 className="event__name">{event.name}</h3>
-                              <p className="event__date">
-                                {formatDate(event.date)}
-                              </p>
-                            </div>
-                          </div>
-                        </Link>
-                      );
-                    }
-                  })}
-              </div>
+
+                {isLocationSelected && (
+                  <div className="events__list">
+                    {locationEvents.map((event) => {
+                      if (event.location === location.city) {
+                        return <SavedEvent event={event} key={event.id} />;
+                      }
+                    })}
+                  </div>
+                )}
+              </article>
             );
           })}
         {searchLocation && events && (
-          <div className="events__wrap">
+          <div className="events__list">
             {events.map((event) => {
-              return (
-                <Link to={`/events/${event.id}`}>
-                  <div
-                    className="event"
-                    // onClick={() => {
-                    //   modalHandler(event.id);
-                    // }}
-                  >
-                    <div className="event__img"></div>
-                    <div className="event__info">
-                      <h3 className="event__name">{event.name}</h3>
-                      <p className="event__date">{formatDate(event.date)}</p>
-                    </div>
-                  </div>
-                </Link>
-              );
+              return <SavedEvent event={event} key={event.id} />;
             })}
           </div>
         )}
-      </div>
-      {/* {modalShown && (
-        <EventModal
-          BACKEND_URL={BACKEND_URL}
-          event={selectedEvent}
-          setEventWasSaved={setEventWasSaved}
-          events={events}
-        />
-      )} */}
+      </main>
     </>
   );
 };
