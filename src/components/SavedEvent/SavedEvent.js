@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import "./SavedEvent.scss";
 
-const SavedEvent = ({ event, modalHandler }) => {
+const SavedEvent = ({ event }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(undefined, {
@@ -10,12 +10,7 @@ const SavedEvent = ({ event, modalHandler }) => {
     });
   };
   return (
-    <article
-      className="saved-event"
-      onClick={() => {
-        modalHandler(event.id);
-      }}
-    >
+    <article className="saved-event">
       <div className="saved-event__img-wrap">
         {/* <img src={event.image} alt="Event image" className="saved-event__img" /> */}
       </div>

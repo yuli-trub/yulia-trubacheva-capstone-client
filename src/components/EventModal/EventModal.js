@@ -2,9 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-const EventModal = ({ BACKEND_URL, setSelectedEventWasSaved, events }) => {
-  // const [isSaved, setIsSaved] = useState(false);
-
+const EventModal = ({ BACKEND_URL }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const { eventId } = useParams();
 
@@ -32,16 +30,12 @@ const EventModal = ({ BACKEND_URL, setSelectedEventWasSaved, events }) => {
       });
     };
     try {
-      const { data } = await axios.put(
-        `${BACKEND_URL}/api/events/${selectedEvent.id}`,
-        {
-          isSaved: 1,
-        }
-      );
-      console.log(data);
+      await axios.put(`${BACKEND_URL}/api/events/${selectedEvent.id}`, {
+        isSaved: 1,
+      });
+
       saveUserEvent();
       getEventById();
-      // setSelectedEventWasSaved(true);
     } catch (error) {
       console.log(error);
     }
@@ -58,15 +52,12 @@ const EventModal = ({ BACKEND_URL, setSelectedEventWasSaved, events }) => {
       });
     };
     try {
-      const { data } = await axios.put(
-        `${BACKEND_URL}/api/events/${selectedEvent.id}`,
-        {
-          isSaved: 0,
-        }
-      );
+      await axios.put(`${BACKEND_URL}/api/events/${selectedEvent.id}`, {
+        isSaved: 0,
+      });
 
       deleteUserEvent();
-      // setSelectedEventWasSaved(true);
+
       getEventById();
     } catch (error) {
       console.log(error);

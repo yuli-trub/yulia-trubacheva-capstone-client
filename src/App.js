@@ -93,11 +93,11 @@ function App() {
             path="/profile/friends"
             element={<UserFriends BACKEND_URL={BACKEND_URL} />}
           />
-          <Route
-            path="/profile/friends/:friendId"
-            element={<ProfileModal BACKEND_URL={BACKEND_URL} />}
-          />
         </Route>
+        <Route
+          path="/profiles/:profileId"
+          element={<ProfileModal BACKEND_URL={BACKEND_URL} />}
+        />
 
         <Route
           path="/explore"

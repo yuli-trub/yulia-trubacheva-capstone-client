@@ -4,6 +4,7 @@ import "./ExplorePage.scss";
 import axios from "axios";
 import SwipeCard from "../../components/SwipeCard/SwipeCard";
 import ProfileModal from "../../components/ProfileModal/ProfileModal";
+import { Link } from "react-router-dom";
 
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
@@ -134,15 +135,19 @@ const ExplorePage = ({ BACKEND_URL }) => {
       </div>
       <div className="swipe-cards">
         {filteredProfiles &&
-          filteredProfiles.map((profile) => (
-            <SwipeCard
-              key={profile.id}
-              profile={profile}
-              getProfiles={getProfiles}
-              BACKEND_URL={BACKEND_URL}
-              modalHandler={modalHandler}
-            />
-          ))}
+          filteredProfiles.map((profile) => {
+            return (
+              <Link to={`/profiles/${profile.id}`}>
+                <SwipeCard
+                  key={profile.id}
+                  profile={profile}
+                  getProfiles={getProfiles}
+                  BACKEND_URL={BACKEND_URL}
+                  modalHandler={modalHandler}
+                />
+              </Link>
+            );
+          })}
       </div>
       {profileModalShown && (
         <ProfileModal profile={selectedProfile} BACKEND_URL={BACKEND_URL} />

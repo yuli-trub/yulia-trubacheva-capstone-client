@@ -53,22 +53,19 @@ const UserFriends = ({ BACKEND_URL }) => {
         {savedFriends &&
           savedFriends.map((friend) => {
             return (
-              <Link
-                to={`/profile/friends/${friend.id}`}
-                className="friends__link"
-              >
+              <Link to={`/profiles/${friend.id}`} className="friends__link">
                 <Friend friend={friend} modalHandler={modalHandler} />{" "}
               </Link>
             );
           })}
       </div>
-      {friendModalShown && (
+      {/* {friendModalShown && (
         <ProfileModal
           BACKEND_URL={BACKEND_URL}
           profile={selectedFriend}
           setFriendModalShown={setFriendModalShown}
         />
-      )}
+      )} */}
     </>
   );
 };
