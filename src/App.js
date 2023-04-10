@@ -12,10 +12,11 @@ import UserFriends from "./components/UserFriends/UserFriends";
 import Navigation from "./components/Navigation/Navigation";
 import HomePage from "./pages/HomePage/HomePage";
 import ChatPage from "./pages/ChatPage/ChatPage";
+import ProfileModal from "./components/ProfileModal/ProfileModal";
+
 import "./App.scss";
 
 import io from "socket.io-client";
-import ProfileModal from "./components/ProfileModal/ProfileModal";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const socket = io.connect("http://localhost:8081", {

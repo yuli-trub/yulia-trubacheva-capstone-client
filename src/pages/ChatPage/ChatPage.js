@@ -30,8 +30,6 @@ const ChatPage = ({ socket, BACKEND_URL, isLoggedIn }) => {
   useEffect(() => {
     try {
       getSavedFriends();
-      console.log(selectedChatId);
-      console.log(currentUser);
     } catch (error) {
       console.log(error);
     }
@@ -50,60 +48,57 @@ const ChatPage = ({ socket, BACKEND_URL, isLoggedIn }) => {
 
   return (
     <>
-      {!savedFriends && !isLoggedIn && (
+      {/* {!savedFriends && !isLoggedIn && (
         <div className="profile__auth">
           <h3 className="profile__warn">Not signed in</h3>
           <Link to="/login" className="profile__signin">
             <button className="profile__button">Sign in</button>
           </Link>
         </div>
-      )}
+      )} */}
+      {/* 
+      {isLoggedIn && ( */}
+      <>
+        <h3 className="chats__header">Messages</h3>
+        <ul className="chats__list">
+          {savedFriends &&
+            savedFriends.map((friend) => {
+              return (
+                <Link
+                  to={`/chats/${friend.id}`}
+                  className="chats__link"
+                  key={friend.id}
+                >
+                  <li className="friend" onClick={() => handleClick(friend.id)}>
+                    <div className="friend__img-wrap">
+                      <img
+                        src={friend.avatar_url}
+                        alt="Friend avatar"
+                        className="friend__img"
+                      />
+                    </div>
+                    <div className="friend__info-wrap">
+                      <h3 className="friend__name">{friend.name}</h3>
+                      <p className="friend__fake-msg">
+                        Hey! How are you doing?
+                      </p>
+                    </div>
+                  </li>
+                </Link>
+              );
+            })}
+        </ul>
 
-      {isLoggedIn && (
-        <>
-          <h3 className="chats__header">Messages</h3>
-          <ul className="chats__list">
-            {savedFriends &&
-              savedFriends.map((friend) => {
-                return (
-                  <Link
-                    to={`/chats/${friend.id}`}
-                    className="chats__link"
-                    key={friend.id}
-                  >
-                    <li
-                      className="friend"
-                      onClick={() => handleClick(friend.id)}
-                    >
-                      <div className="friend__img-wrap">
-                        <img
-                          src={friend.avatar_url}
-                          alt="Friend avatar"
-                          className="friend__img"
-                        />
-                      </div>
-                      <div className="friend__info-wrap">
-                        <h3 className="friend__name">{friend.name}</h3>
-                        <p className="friend__fake-msg">
-                          Hey! How are you doing?
-                        </p>
-                      </div>
-                    </li>
-                  </Link>
-                );
-              })}
-          </ul>
-
-          {showChat && (
-            <Chat
-              socket={socket}
-              selectedChatId={selectedChatId}
-              currentUser={currentUser}
-              setShowChat={setShowChat}
-            />
-          )}
-        </>
-      )}
+        {showChat && (
+          <Chat
+            socket={socket}
+            selectedChatId={selectedChatId}
+            currentUser={currentUser}
+            setShowChat={setShowChat}
+          />
+        )}
+      </>
+      {/* )} */}
     </>
   );
 };
