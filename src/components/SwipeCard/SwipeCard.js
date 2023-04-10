@@ -1,8 +1,9 @@
 import axios from "axios";
 import "./SwipeCard.scss";
 import TinderCard from "react-tinder-card";
+import { Link } from "react-router-dom";
 
-const SwipeCard = ({ profile, BACKEND_URL, modalHandler }) => {
+const SwipeCard = ({ profile, BACKEND_URL }) => {
   const onSwipe = (direction, profileId) => {
     if (direction === "left") {
       console.log("left");
@@ -74,31 +75,44 @@ const SwipeCard = ({ profile, BACKEND_URL, modalHandler }) => {
   const startDate = formatDate(profile.start_date);
   const endDate = formatDate(profile.end_date);
   return (
-    <TinderCard
-      className="react-tinder-card"
-      onSwipe={(direction) => onSwipe(direction, profile.id)}
-    >
-      <div
-        className="card"
+    <>
+      <TinderCard
+        className="react-tinder-card"
+        onSwipe={(direction) => onSwipe(direction, profile.id)}
+      >
+        <Link to={`/profiles/${profile.id}`} className="card__link">
+          <div className="card">
+            <img src={profile.avatar} alt="avatar" className="card__avatar" />
+            <div className="card__info">
+              <h3 className="card__name">{profile.name}</h3>
+              <h3 className="card__age">{profile.age}</h3>
+            </div>
+            <div className="card__location-info">
+              <p className="card__location">{profile.location}</p>
+              <p className="card__dates">
+                {startDate} - {endDate}
+              </p>
+            </div>
+          </div>{" "}
+        </Link>{" "}
+      </TinderCard>
+      {/* <p
+        className="card__arrow card__arrow--left"
         onClick={() => {
-          modalHandler(profile.id);
-          console.log(profile.id);
-          console.log("clicked");
+          onSwipe("left", profile.id);
         }}
       >
-        <img src={profile.avatar} alt="avatar" className="card__avatar" />
-        <div className="card__info">
-          <h3 className="card__name">{profile.name}</h3>
-          <h3 className="card__age">{profile.age}</h3>
-        </div>
-        <div className="card__location-info">
-          <p className="card__location">{profile.location}</p>
-          <p className="card__dates">
-            {startDate} - {endDate}
-          </p>
-        </div>
-      </div>
-    </TinderCard>
+        left
+      </p>
+      <p
+        className="card__arrow card__arrow--right"
+        onClick={() => {
+          onSwipe("right", profile.id);
+        }}
+      >
+        right
+      </p> */}
+    </>
   );
 };
 export default SwipeCard;

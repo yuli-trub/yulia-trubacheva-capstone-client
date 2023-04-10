@@ -37,8 +37,11 @@ const Profile = ({ handleLogout, BACKEND_URL }) => {
           <>
             <div className="profile__data">
               <div className="profile__img">
-                {/* <img src="#" alt="avatar" className="profile__avatar" /> */}
-                <div className="profile__avatar"></div>
+                <img
+                  src={userData.user.avatar_url}
+                  alt="avatar"
+                  className="profile__avatar"
+                />
               </div>
               <div className="profile__info">
                 {" "}

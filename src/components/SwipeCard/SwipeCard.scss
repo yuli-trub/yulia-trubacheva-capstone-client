@@ -1,19 +1,100 @@
-.card {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  background-color: white;
-  border: 2px black solid;
-}
-
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
 .react-tinder-card {
   position: absolute;
-  width: 50%;
-  height: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 50rem;
+  height: 30rem;
+  border-radius: 10px;
+
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out;
 }
-.react-tinder-card:first-child {
-  z-index: 1;
+.react-tinder-card--swipe-left {
+  transform: translateX(-100%) rotate(-30deg);
 }
-.react-tinder-card:last-child {
-  z-index: 0;
+
+.react-tinder-card--swipe-right {
+  transform: translateX(100%) rotate(30deg);
+}
+
+.card__arrow {
+  position: absolute;
+  bottom: 0;
+
+  transform: translateY(-50%);
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.card__arrow:hover {
+  opacity: 1;
+}
+
+.card__arrow--left {
+  left: 35%;
+}
+
+.card__arrow--right {
+  right: 35%;
+}
+
+.card__link {
+  display: block;
+  height: 100%;
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.card__avatar {
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+}
+
+.card__info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  color: $primary-text;
+}
+
+.card__name {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.card__age {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.card__location-info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1.6rem;
+  color: $primary-bg;
+  text-align: right;
+}
+
+.card__location {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.card__dates {
+  font-size: 1.2rem;
+  margin: 0;
 }

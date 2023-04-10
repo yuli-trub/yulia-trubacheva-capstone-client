@@ -41,6 +41,7 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
       await axios.post(`${BACKEND_URL}/api/users/register`, {
         name: formData.name,
         email: formData.email,
+        avatar_url: "https://source.boringavatars.com/beam/300/",
         password: formData.password,
         age: formData.age,
         bio: formData.bio,

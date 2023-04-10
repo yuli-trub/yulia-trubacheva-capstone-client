@@ -9,10 +9,15 @@ const SavedEvent = ({ event }) => {
       month: "short",
     });
   };
+  console.log(event);
   return (
     <article className="saved-event">
       <div className="saved-event__img-wrap">
-        <img src={event.image} alt="Event image" className="saved-event__img" />
+        <img
+          src={event.event_img_url}
+          alt="Event image"
+          className="saved-event__img"
+        />
       </div>
       <div className="saved-event__info-wrap">
         <h3 className="saved-event__name">{event.name}</h3>

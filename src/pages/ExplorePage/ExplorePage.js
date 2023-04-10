@@ -3,8 +3,6 @@ import "./ExplorePage.scss";
 import "./ExplorePage.scss";
 import axios from "axios";
 import SwipeCard from "../../components/SwipeCard/SwipeCard";
-import ProfileModal from "../../components/ProfileModal/ProfileModal";
-import { Link } from "react-router-dom";
 
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
@@ -13,15 +11,12 @@ const ExplorePage = ({ BACKEND_URL }) => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [profileModalShown, setProfileModalShown] = useState(false);
-  const [selectedProfile, setSelectedProfile] = useState(null);
 
   // Get all profiles
   const getProfiles = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/api/profiles`);
     const norSavedProfiles = data.filter((profile) => profile.isSwiped === 0);
     setProfiles(norSavedProfiles);
-    console.log(norSavedProfiles);
     setFilteredProfiles(norSavedProfiles);
   };
 
@@ -49,11 +44,11 @@ const ExplorePage = ({ BACKEND_URL }) => {
   }, []);
 
   //Modal show
-  const modalHandler = (profileId) => {
-    const chosenProfile = profiles.find((profile) => profile.id === profileId);
-    setSelectedProfile(chosenProfile);
-    setProfileModalShown(true);
-  };
+  // const modalHandler = (profileId) => {
+  //   const chosenProfile = profiles.find((profile) => profile.id === profileId);
+  //   setSelectedProfile(chosenProfile);
+  //   setProfileModalShown(true);
+  // };
 
   //Filter by location and date
 
@@ -98,7 +93,6 @@ const ExplorePage = ({ BACKEND_URL }) => {
     }
 
     setFilteredProfiles(filteredProfiles);
-    // setProfilesModified(true);
   };
 
   // Loading
@@ -108,50 +102,63 @@ const ExplorePage = ({ BACKEND_URL }) => {
 
   return (
     <>
-      <div className="filters">
-        <select
-          value={selectedLocation}
-          onChange={handleSelectChange}
-          className="filters__location"
-        >
-          <option value="">Select a location</option>
-          {locations &&
-            locations.map((location) => (
-              <option key={location.id} value={location.city}>
-                {location.city}
-              </option>
-            ))}
-        </select>
-        <input
-          type="date"
-          value={`select date ${startDate}`}
-          onChange={handleStartDateChange}
-        />
-        <input
-          type="date"
-          value={`select date ${endDate}`}
-          onChange={handleEndDateChange}
-        />
-      </div>
-      <div className="swipe-cards">
-        {filteredProfiles &&
-          filteredProfiles.map((profile) => {
-            return (
-              <Link to={`/profiles/${profile.id}`}>
+      <main className="explore">
+        <div className="filters">
+          <select
+            value={selectedLocation}
+            onChange={handleSelectChange}
+            className="filters__location"
+          >
+            <option value="">Select a location</option>
+            {locations &&
+              locations.map((location) => (
+                <option key={location.id} value={location.city}>
+                  {location.city}
+                </option>
+              ))}
+          </select>
+          <div className="filters__dates">
+            <div className="filters__container">
+              <label htmlFor="date" className="filters__label">
+                Start Date
+              </label>
+              <input
+                className="filters__date"
+                type="date"
+                value={startDate ? startDate : "Start Date"}
+                onChange={handleStartDateChange}
+                placeholder="Start Date"
+              />
+            </div>
+            <div className="filters__container">
+              <label htmlFor="date" className="filters__label">
+                End Date
+              </label>
+
+              <input
+                className="filters__date"
+                type="date"
+                value={endDate ? endDate : "End Date"}
+                onChange={handleEndDateChange}
+                placeholder="End Date"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="swipe-cards">
+          {filteredProfiles &&
+            filteredProfiles.map((profile) => {
+              return (
                 <SwipeCard
                   key={profile.id}
                   profile={profile}
                   getProfiles={getProfiles}
                   BACKEND_URL={BACKEND_URL}
-                  modalHandler={modalHandler}
                 />
-              </Link>
-            );
-          })}
-      </div>
-      {profileModalShown && (
-        <ProfileModal profile={selectedProfile} BACKEND_URL={BACKEND_URL} />
-      )}
+              );
+            })}
+        </div>
+      </main>
     </>
   );
 };
