@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "./Chat.scss";
 
-const Chat = ({ socket, selectedChatId, currentUser }) => {
+const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
   const [currentMessage, setCurrentMessage] = useState(null);
   const [msgList, setMsgList] = useState([]);
 
@@ -28,39 +29,57 @@ const Chat = ({ socket, selectedChatId, currentUser }) => {
     });
   }, [socket]);
 
+  const navigate = useNavigate();
+
   return (
     <>
-      <div>
-        <div className="chat__header">Chat with someone</div>
-        <div className="chat__body">
-          {msgList.map((message) => {
-            return (
-              <div className="message">
-                <div className="message__content">
-                  <p>{message.message}</p>
-                </div>
-                <div className="message__meta">
-                  <p className="message__time">{message.time}</p>
-                  <p className="message__author">{message.author}</p>
-                </div>
-              </div>
-            );
-          })}
+      <section className="chat">
+        <div className="chat__wrap">
+          <div className="chat__header">
+            <p
+              className="chat__back"
+              onClick={() => {
+                navigate(-1);
+                setShowChat(false);
+              }}
+            >
+              --
+            </p>
+            <h2 className="chat__title">Chat</h2>
+          </div>
+          <div className="chat__body">
+            {msgList.map((message) => {
+              return (
+                <article className="message" key={message.time}>
+                  <div className="message__content">
+                    <p className="message__text">{message.message}</p>
+                  </div>
+                  <div className="message__meta">
+                    <p className="message__time">{message.time}</p>
+                    <p className="message__author">{currentUser.avatar_url}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <div className="chat__footer">
+            <input
+              type="text"
+              className="chat__input"
+              placeholder="Type the message"
+              onChange={(event) => {
+                setCurrentMessage(event.target.value);
+              }}
+              onKeyPress={(e) => {
+                e.key === "Enter" && sendMessage();
+              }}
+            />
+            <button className="chat__btn" onClick={sendMessage}>
+              send
+            </button>
+          </div>
         </div>
-        <div className="chat__footer">
-          <input
-            type="text"
-            placeholder="hey message"
-            onChange={(event) => {
-              setCurrentMessage(event.target.value);
-            }}
-            onKeyPress={(e) => {
-              e.key === "Enter" && sendMessage();
-            }}
-          />
-          <button onClick={sendMessage}>send</button>
-        </div>
-      </div>
+      </section>
     </>
   );
 };

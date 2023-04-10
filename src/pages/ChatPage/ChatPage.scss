@@ -1,0 +1,71 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.chats {
+  &__header {
+    border-bottom: 1px #99cccc solid;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #545554;
+    padding: 0.8rem 1.6rem;
+  }
+
+  &__list {
+    @include flex(flex-start, flex-start, column);
+    padding: 0 1.6rem;
+  }
+
+  &__link {
+    text-decoration: none;
+    width: 100%;
+  }
+}
+
+.friend {
+  @include flex(flex-start, center, row);
+  box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 1.6rem;
+  margin: 1rem 0;
+  list-style: none;
+  width: 100%;
+
+  &:hover {
+    background-color: rgba($secondary-bg, 0.2);
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+  &__img-wrap {
+    height: 6.5rem;
+    width: 6.5rem;
+    border-radius: 50%;
+    margin-right: 1.6rem;
+  }
+
+  &__img {
+    width: 100%;
+  }
+
+  &__info-wrap {
+    width: 70%;
+    @include flex(space-between, flex-start, column);
+  }
+  &__name {
+    font-size: 1.3rem;
+    margin: 0;
+    font-weight: 600;
+    text-decoration: none;
+    color: $primary-text;
+  }
+
+  &__fake-msg {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: $secondary-text;
+  }
+}

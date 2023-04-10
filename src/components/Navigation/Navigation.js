@@ -14,7 +14,7 @@ const Navigation = () => {
       <NavLink className="nav-menu__item" to="/profile">
         <img src={explore} alt="Chat" className="nac-menu__icon" />
       </NavLink>
-      <NavLink className="nav-menu__item" to="/about">
+      <NavLink className="nav-menu__item" to="/">
         <img src={explore} alt="Profile" className="nac-menu__icon" />
       </NavLink>
       <NavLink className="nav-menu__item" to="/chats">

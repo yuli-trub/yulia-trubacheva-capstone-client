@@ -50,10 +50,10 @@ function App() {
           path="/chats"
           element={<ChatPage socket={socket} BACKEND_URL={BACKEND_URL} />}
         />
-        {/* <Route
-          path="/chat/:id"
-          element={<Chat socket={socket} BACKEND_URL={BACKEND_URL} />}
-        /> */}
+        <Route
+          path="/chats/:id"
+          element={<ChatPage socket={socket} BACKEND_URL={BACKEND_URL} />}
+        />
         <Route
           path="/register"
           element={

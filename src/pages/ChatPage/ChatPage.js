@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Chat from "../../components/Chat/Chat";
+import { Link } from "react-router-dom";
+import "./ChatPage.scss";
 
 const ChatPage = ({ socket, BACKEND_URL }) => {
   const [savedFriends, setSavedFriends] = useState(null);
@@ -47,29 +49,40 @@ const ChatPage = ({ socket, BACKEND_URL }) => {
 
   return (
     <>
-      {!showChat ? (
-        <>
-          (<h3 className="chats__header">Your chats</h3>
-          <ul className="chats__list">
-            {savedFriends &&
-              savedFriends.map((friend) => {
-                return (
-                  <li
-                    className="chats__item"
-                    onClick={() => handleClick(friend.id)}
-                  >
-                    {friend.name}
-                  </li>
-                );
-              })}
-          </ul>
-          )
-        </>
-      ) : (
+      <h3 className="chats__header">Messages</h3>
+      <ul className="chats__list">
+        {savedFriends &&
+          savedFriends.map((friend) => {
+            return (
+              <Link
+                to={`/chats/${friend.id}`}
+                className="chats__link"
+                key={friend.id}
+              >
+                <li className="friend" onClick={() => handleClick(friend.id)}>
+                  <div className="friend__img-wrap">
+                    <img
+                      src={friend.avatar_url}
+                      alt="Friend avatar"
+                      className="friend__img"
+                    />
+                  </div>
+                  <div className="friend__info-wrap">
+                    <h3 className="friend__name">{friend.name}</h3>
+                    <p className="friend__fake-msg">Hey! How are you doing?</p>
+                  </div>
+                </li>
+              </Link>
+            );
+          })}
+      </ul>
+
+      {showChat && (
         <Chat
           socket={socket}
           selectedChatId={selectedChatId}
           currentUser={currentUser}
+          setShowChat={setShowChat}
         />
       )}
     </>
