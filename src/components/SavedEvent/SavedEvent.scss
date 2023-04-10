@@ -13,12 +13,18 @@
     background-color: rgba($secondary-bg, 0.2);
   }
   &__img-wrap {
-    background-color: $secondary-bg;
+    // background-color: $secondary-bg;
     height: 6.5rem;
     width: 6.5rem;
     border-radius: 5px;
     margin-right: 1rem;
   }
+
+  &__img {
+    width: 100%;
+    border-radius: 5px;
+  }
+
   &__info-wrap {
     width: 70%;
     @include flex(space-between, flex-start, column);

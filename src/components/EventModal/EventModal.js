@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import "./EventModal.scss";
 
 const EventModal = ({ BACKEND_URL }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -63,24 +64,56 @@ const EventModal = ({ BACKEND_URL }) => {
       console.log(error);
     }
   };
-  console.log(selectedEvent);
+
+  const navigate = useNavigate();
+
+  const navigateHandler = () => {
+    navigate(-1);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+    });
+  };
   return (
     <>
       {selectedEvent && (
-        <div className="event__wrap">
-          <h2 className="event__title">{selectedEvent.name}</h2>
-          <p className="event__description">{selectedEvent.description}</p>
-          <p className="event__date">{selectedEvent.date}</p>
+        <section className="event-modal__wrap">
+          <div className="event-modal__navigate">
+            <p className="event-modal__arrow" onClick={navigateHandler}>
+              back
+            </p>
+          </div>
+          <div className="event-modal__img-wrap">
+            <img
+              src={selectedEvent.image}
+              alt="event"
+              className="event-modal__img"
+            />
+          </div>
+          <h2 className="event-modal__title">{selectedEvent.name}</h2>
+          <div className="event-modal__info">
+            <p className="event-modal__location">{selectedEvent.location}</p>
+            <p className="event-modal__date">
+              {formatDate(selectedEvent.date)}
+            </p>
+          </div>
+          <p className="event-modal__description">
+            {selectedEvent.description}
+          </p>
           {!selectedEvent.isSaved ? (
-            <p className="event__save" onClick={saveEvent}>
+            <p className="event-modal__action" onClick={saveEvent}>
               Save
             </p>
           ) : (
-            <p className="event__unsave" onClick={unsaveEvent}>
-              unSave
+            <p className="event-modal__action" onClick={unsaveEvent}>
+              Delete
             </p>
           )}
-        </div>
+        </section>
       )}
     </>
   );

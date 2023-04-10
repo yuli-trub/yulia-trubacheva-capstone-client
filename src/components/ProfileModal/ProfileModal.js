@@ -43,6 +43,7 @@ const ProfileModal = ({ BACKEND_URL }) => {
       console.log(data);
       deleteUserFriend();
       getFullProfile();
+      navigate(-1);
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +62,6 @@ const ProfileModal = ({ BACKEND_URL }) => {
       month: "short",
     });
   };
-  console.log(fullProfile);
 
   return (
     <>
