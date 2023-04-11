@@ -46,7 +46,7 @@ function App() {
     <BrowserRouter>
       <Header handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />
         <Route
           path="/chats"
           element={

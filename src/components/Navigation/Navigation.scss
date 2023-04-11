@@ -7,10 +7,12 @@
   padding: 1rem 1.6rem;
   background-color: $primary-bg;
   border-top: 2px $primary-bg;
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
-  height: 20%;
+  height: 10%;
 
   &__item {
     @include flex(center, center, row);

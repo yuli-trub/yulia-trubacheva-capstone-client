@@ -46,7 +46,7 @@
 
   &__wrap {
     @include flex(flex-start, stretch, column);
-    height: 80vh;
+    height: 77vh;
     scroll-behavior: smooth;
     overflow: scroll;
     background-color: $bg-light;

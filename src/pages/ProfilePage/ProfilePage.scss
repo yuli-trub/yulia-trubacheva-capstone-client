@@ -4,6 +4,9 @@
 
 .profile {
   padding: 0 1.6rem;
+  height: 77vh;
+  scroll-behavior: smooth;
+  overflow: scroll;
 
   &__title {
   }

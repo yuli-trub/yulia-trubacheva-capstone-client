@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./HomePage.scss";
 
-const HomePage = () => {
+const HomePage = ({ isLoggedIn }) => {
   return (
     <>
       <main className="homepage">
@@ -23,22 +23,23 @@ const HomePage = () => {
             can explore, connect, and make memories together with Wonderly?
           </p>
         </section>
-        <div className="homepage__hero">
-          <div className="homepage__catch">
-            {/* <h1 className="homepage__logo">Wonderly</h1> */}
-            <h3 className="homepage__slogan">
-              Join us today and start your next adventure!
-            </h3>
+        {!isLoggedIn && (
+          <div className="homepage__hero">
+            <div className="homepage__catch">
+              <h3 className="homepage__slogan">
+                Join us today and start your next adventure!
+              </h3>
+            </div>
+            <div className="homepage__links">
+              <Link to="/login" className="homepage__link">
+                Sign in
+              </Link>
+              <Link to="/register" className="homepage__link">
+                Sign up
+              </Link>
+            </div>
           </div>
-          <div className="homepage__links">
-            <Link to="/login" className="homepage__link">
-              Sign in
-            </Link>
-            <Link to="/login" className="homepage__link">
-              Sign up
-            </Link>
-          </div>
-        </div>
+        )}
       </main>
     </>
   );

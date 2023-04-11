@@ -112,11 +112,11 @@ const EventModal = ({ BACKEND_URL }) => {
           </p>
           {!selectedEvent.isSaved ? (
             <div className="event-modal__action" onClick={saveEvent}>
-              <img src={heart} alt="save" className="event-modal__icon" />
+              <img src={heart2} alt="save" className="event-modal__icon" />
             </div>
           ) : (
             <div className="event-modal__action" onClick={unsaveEvent}>
-              <img src={heart2} alt="delete" className="event-modal__icon" />
+              <img src={heart} alt="delete" className="event-modal__icon" />
             </div>
           )}
         </section>
