@@ -59,36 +59,40 @@ const ChatPage = ({ socket, BACKEND_URL, isLoggedIn }) => {
       {/* 
       {isLoggedIn && ( */}
       <>
-        <h3 className="chats__header">Messages</h3>
-        <ul className="chats__list">
-          {savedFriends &&
-            savedFriends.map((friend) => {
-              return (
-                <Link
-                  to={`/chats/${friend.id}`}
-                  className="chats__link"
-                  key={friend.id}
-                >
-                  <li className="friend" onClick={() => handleClick(friend.id)}>
-                    <div className="friend__img-wrap">
-                      <img
-                        src={friend.avatar_url}
-                        alt="Friend avatar"
-                        className="friend__img"
-                      />
-                    </div>
-                    <div className="friend__info-wrap">
-                      <h3 className="friend__name">{friend.name}</h3>
-                      <p className="friend__fake-msg">
-                        Hey! How are you doing?
-                      </p>
-                    </div>
-                  </li>
-                </Link>
-              );
-            })}
-        </ul>
-
+        <div className="chats__wrap">
+          <h3 className="chats__header">Messages</h3>
+          <ul className="chats__list">
+            {savedFriends &&
+              savedFriends.map((friend) => {
+                return (
+                  <Link
+                    to={`/chats/${friend.id}`}
+                    className="chats__link"
+                    key={friend.id}
+                  >
+                    <li
+                      className="friend"
+                      onClick={() => handleClick(friend.id)}
+                    >
+                      <div className="friend__img-wrap">
+                        <img
+                          src={friend.avatar_url}
+                          alt="Friend avatar"
+                          className="friend__img"
+                        />
+                      </div>
+                      <div className="friend__info-wrap">
+                        <h3 className="friend__name">{friend.name}</h3>
+                        <p className="friend__fake-msg">
+                          Hey! How are you doing?
+                        </p>
+                      </div>
+                    </li>
+                  </Link>
+                );
+              })}
+          </ul>
+        </div>
         {showChat && (
           <Chat
             socket={socket}

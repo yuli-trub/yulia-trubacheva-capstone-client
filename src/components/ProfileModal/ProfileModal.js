@@ -147,7 +147,7 @@ const ProfileModal = ({ BACKEND_URL }) => {
                 />
               </div>
               <Link
-                to={`/chat/${profileId}`}
+                to={`/chats/${profileId}`}
                 className="profile-modal__action profile-modal__action--message"
               >
                 <img

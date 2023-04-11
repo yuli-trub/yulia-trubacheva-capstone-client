@@ -3,6 +3,13 @@
 @use "../../styles/partials/typography" as *;
 
 .chats {
+  &__wrap {
+    height: 77vh;
+    scroll-behavior: smooth;
+    overflow: scroll;
+    padding-bottom: 2rem;
+  }
+
   &__header {
     border-bottom: 1px #99cccc solid;
     margin: 0;

@@ -48,7 +48,7 @@ const EventsPage = ({ BACKEND_URL }) => {
       } else {
         const { data } = await axios.get(`${BACKEND_URL}/api/events`);
         const locationEvents = data.filter(
-          (event) => event.location === location
+          (event) => event.location.toLowerCase() === location.toLowerCase()
         );
         setEvents(locationEvents);
         setSelectedLocation(location);
