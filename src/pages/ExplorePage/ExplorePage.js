@@ -68,6 +68,12 @@ const ExplorePage = ({ BACKEND_URL }) => {
     console.log(
       `Selected filter option: ${location}, ${startDate}, ${endDate}`
     );
+    if (!location) {
+      setSelectedLocation("");
+      setFilteredProfiles(profiles);
+      return;
+    }
+
     // initial filter
     let filteredProfiles = profiles.filter(
       (profile) => profile.location === location
