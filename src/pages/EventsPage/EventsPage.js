@@ -93,7 +93,7 @@ const EventsPage = ({ BACKEND_URL }) => {
             );
             const isLocationSelected = selectedLocation === location.city;
             return (
-              <article className="location">
+              <article className="location" key={location.id}>
                 <h2
                   className="location__title"
                   onClick={() =>

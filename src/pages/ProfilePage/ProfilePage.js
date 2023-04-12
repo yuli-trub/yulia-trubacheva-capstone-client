@@ -27,8 +27,6 @@ const Profile = ({ handleLogout, BACKEND_URL, isLoggedIn }) => {
     getUserData();
   }, [handleLogout]);
 
-  console.log(userData);
-
   return (
     <>
       <div className="profile">

@@ -32,7 +32,7 @@ const LoginForm = ({ setIsLoggedIn, BACKEND_URL }) => {
       sessionStorage.setItem("authToken", data.authToken);
 
       setIsLoggedIn(true);
-
+      await axios.post(`${BACKEND_URL}/api/profiles/resetColumn`, {});
       navigate("/profile");
     } catch (error) {
       console.log(error.response);

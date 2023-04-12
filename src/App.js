@@ -59,7 +59,13 @@ function App() {
         />
         <Route
           path="/chats/:id"
-          element={<ChatPage socket={socket} BACKEND_URL={BACKEND_URL} />}
+          element={
+            <ChatPage
+              socket={socket}
+              BACKEND_URL={BACKEND_URL}
+              isLoggedIn={isLoggedIn}
+            />
+          }
         />
         <Route
           path="/register"

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Chat.scss";
 import send from "../../assets/icons/send.svg";
 import back from "../../assets/icons/back.svg";
+import { v4 as uuidv4 } from "uuid";
 
 const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
   const [currentMessage, setCurrentMessage] = useState(null);
@@ -11,7 +12,8 @@ const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
   const sendMessage = async () => {
     if (currentMessage) {
       const msgData = {
-        room: selectedChatId,
+        room: 1,
+        id: uuidv4(),
         author: currentUser,
         message: currentMessage,
         time:
@@ -21,15 +23,25 @@ const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
       };
 
       await socket.emit("send_msg", msgData);
-      setMsgList((list) => [...list, msgData]);
+
+      if (msgData.author === currentUser) {
+        setMsgList((list) => [...list, msgData]);
+      }
     }
   };
 
   useEffect(() => {
-    socket.on("receive_mgs", (data) => {
-      setMsgList((list) => [...list, data]);
+    socket.on("receive_msg", (data) => {
+      if (data.author !== currentUser) {
+        setMsgList((list) => {
+          if (list.some((msg) => msg.id === data.id)) {
+            return list;
+          }
+          return [...list, data];
+        });
+      }
     });
-  }, [socket]);
+  }, [socket, currentUser]);
 
   const navigate = useNavigate();
 
@@ -51,19 +63,44 @@ const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
             <h2 className="chat__title">Chat</h2>
           </div>
           <div className="chat__body">
-            {msgList.map((message) => {
-              return (
-                <article className="message" key={message.time}>
-                  <div className="message__content">
-                    <p className="message__text">{message.message}</p>
-                  </div>
-                  <div className="message__meta">
-                    <p className="message__time">{message.time}</p>
-                    <p className="message__author">{currentUser.avatar_url}</p>
-                  </div>
-                </article>
-              );
-            })}
+            {msgList &&
+              msgList.map((message) => {
+                return (
+                  <article className="message" key={message.id}>
+                    <div
+                      className={`message__content ${
+                        message.author === currentUser
+                          ? "message__content--current"
+                          : "message__content--other"
+                      }`}
+                    >
+                      <p className="message__text">{message.message}</p>
+                    </div>
+                    <div className="message__meta">
+                      <p
+                        className={`message__time ${
+                          message.author === currentUser
+                            ? "message__time--current"
+                            : "message__time--other"
+                        }`}
+                      >
+                        {message.time}
+                      </p>
+                      {/* <p
+                        className={`message__time ${
+                          message.author === currentUser
+                            ? "message__time--current"
+                            : "message__time--other"
+                        }`}
+                      >
+                        {message.author === currentUser
+                          ? "You"
+                          : message.author}
+                      </p> */}
+                    </div>
+                  </article>
+                );
+              })}
           </div>
           <div className="chat__footer">
             <input

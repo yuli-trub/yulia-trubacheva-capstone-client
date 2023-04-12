@@ -1,22 +1,44 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./RegisterForm.scss";
 
 const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "",
     age: "",
     bio: "",
+    location: null,
   });
+  const [locations, setLocations] = useState(null);
 
   const navigate = useNavigate();
 
+  //Get all locations
+  const getLocations = async () => {
+    const { data } = await axios.get(`${BACKEND_URL}/api/locations`);
+    setLocations(data);
+  };
+
+  useEffect(() => {
+    try {
+      getLocations();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "location") {
+      setSelectedLocation(e.target.value);
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -26,7 +48,8 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
       !formData.email ||
       !formData.password ||
       !formData.name ||
-      !formData.age
+      !formData.age ||
+      !formData.location
     ) {
       setErrorMessage("You must fill in all the form fields");
       return;
@@ -44,8 +67,8 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
         password: formData.password,
         age: formData.age,
         bio: formData.bio,
+        location_id: selectedLocation,
       });
-
       setIsRegistered(true);
       navigate("/login");
       await axios.post(`${BACKEND_URL}/api/profiles/resetColumn`, {});
@@ -101,6 +124,20 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
               onChange={(e) => handleChange(e)}
             />
           </div>
+          <select
+            value={selectedLocation}
+            onChange={handleChange}
+            className="form__input"
+            name="location"
+          >
+            <option value="">Select a location</option>
+            {locations &&
+              locations.map((location) => (
+                <option key={location.id} value={location.id}>
+                  {location.city}
+                </option>
+              ))}
+          </select>
           {errorMessage && <p className="form__error">{errorMessage}</p>}
           <button className="form__btn">Sign up</button>
         </form>
