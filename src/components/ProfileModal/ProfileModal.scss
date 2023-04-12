@@ -38,6 +38,8 @@
 
   &__info {
     padding: 1.6rem;
+
+    width: 100%;
   }
 
   &__top-wrap {
@@ -104,6 +106,7 @@
 
   &__events {
     @include flex(space-evenly, center, column);
+    width: 100%;
   }
   &__headline {
     font-weight: 500;

@@ -3,6 +3,7 @@ import "./ExplorePage.scss";
 import "./ExplorePage.scss";
 import axios from "axios";
 import SwipeCard from "../../components/SwipeCard/SwipeCard";
+import { Link } from "react-router-dom";
 
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
@@ -148,12 +149,14 @@ const ExplorePage = ({ BACKEND_URL }) => {
           {filteredProfiles &&
             filteredProfiles.map((profile) => {
               return (
+                // <Link to={`/profiles/${profile.id}`} className="card__link">
                 <SwipeCard
                   key={profile.id}
                   profile={profile}
                   getProfiles={getProfiles}
                   BACKEND_URL={BACKEND_URL}
                 />
+                // </Link>
               );
             })}
         </div>
