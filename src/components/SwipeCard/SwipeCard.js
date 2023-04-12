@@ -74,26 +74,26 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
   const endDate = formatDate(profile.end_date);
   return (
     <>
-      <TinderCard
-        className="react-tinder-card"
-        onSwipe={(direction) => onSwipe(direction, profile.id)}
-      >
-        {/* <Link to={`/profiles/${profile.id}`} className="card__link"> */}
-        <div className="card">
-          <img src={profile.avatar} alt="avatar" className="card__avatar" />
-          <div className="card__info">
-            <h3 className="card__name">{profile.name}</h3>
-            <h3 className="card__age">{profile.age}</h3>
-          </div>
-          <div className="card__location-info">
-            <p className="card__location">{profile.location}</p>
-            <p className="card__dates">
-              {startDate} - {endDate}
-            </p>
-          </div>
-        </div>{" "}
-        {/* </Link>{" "} */}
-      </TinderCard>
+      <Link to={`/profiles/${profile.id}`} className=" card__link">
+        <TinderCard
+          className="react-tinder-card"
+          onSwipe={(direction) => onSwipe(direction, profile.id)}
+        >
+          <div className="card">
+            <img src={profile.avatar} alt="avatar" className="card__avatar" />
+            <div className="card__info">
+              <h3 className="card__name">{profile.name}</h3>
+              <h3 className="card__age">{profile.age}</h3>
+            </div>
+            <div className="card__location-info">
+              <p className="card__location">{profile.location}</p>
+              <p className="card__dates">
+                {startDate} - {endDate}
+              </p>
+            </div>
+          </div>{" "}
+        </TinderCard>
+      </Link>{" "}
       {/* <p
         className="card__arrow card__arrow--left"
         onClick={() => {
