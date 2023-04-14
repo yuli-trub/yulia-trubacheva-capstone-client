@@ -5,7 +5,7 @@ import send from "../../assets/icons/send.svg";
 import back from "../../assets/icons/back.svg";
 import { v4 as uuidv4 } from "uuid";
 
-const Chat = ({ socket, selectedChatId, currentUser, setShowChat }) => {
+const Chat = ({ socket, currentUser, setShowChat }) => {
   const [currentMessage, setCurrentMessage] = useState(null);
   const [msgList, setMsgList] = useState([]);
 

@@ -17,7 +17,7 @@
     text-decoration: none;
   }
   &__img-wrap {
-    // background-color: $secondary-bg;
+    background-color: $secondary-bg;
     height: 6.5rem;
     width: 6.5rem;
     border-radius: 5px;
@@ -25,6 +25,8 @@
   }
 
   &__img {
+    height: 6.5rem;
+    width: 6.5rem;
     width: 100%;
     border-radius: 5px;
   }

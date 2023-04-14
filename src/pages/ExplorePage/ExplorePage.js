@@ -3,7 +3,6 @@ import "./ExplorePage.scss";
 import "./ExplorePage.scss";
 import axios from "axios";
 import SwipeCard from "../../components/SwipeCard/SwipeCard";
-import { Link } from "react-router-dom";
 
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
@@ -12,11 +11,36 @@ const ExplorePage = ({ BACKEND_URL }) => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const authToken = sessionStorage.getItem("authToken");
+
+      try {
+        const { data } = await axios.get(`${BACKEND_URL}/api/users/profile`, {
+          headers: {
+            authorisation: `Bearer ${authToken}`,
+          },
+        });
+
+        setUserData(data);
+        // setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUserData();
+  }, []);
 
   // Get all profiles
   const getProfiles = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/api/profiles`);
-    const norSavedProfiles = data.filter((profile) => profile.isSwiped === 0);
+    const norSavedProfiles = data.filter(
+      (profile) => profile.isSwiped === 0 && profile.name !== userData.user.name
+    );
+    console.log(norSavedProfiles);
     setProfiles(norSavedProfiles);
     setFilteredProfiles(norSavedProfiles);
   };
@@ -33,6 +57,7 @@ const ExplorePage = ({ BACKEND_URL }) => {
   //Get all locations
   const getLocations = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/api/locations`);
+
     setLocations(data);
   };
 
@@ -149,14 +174,12 @@ const ExplorePage = ({ BACKEND_URL }) => {
           {filteredProfiles &&
             filteredProfiles.map((profile) => {
               return (
-                // <Link to={`/profiles/${profile.id}`} className="card__link">
                 <SwipeCard
                   key={profile.id}
                   profile={profile}
                   getProfiles={getProfiles}
                   BACKEND_URL={BACKEND_URL}
                 />
-                // </Link>
               );
             })}
         </div>

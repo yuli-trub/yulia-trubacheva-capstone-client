@@ -32,6 +32,7 @@ const LoginForm = ({ setIsLoggedIn, BACKEND_URL }) => {
       sessionStorage.setItem("authToken", data.authToken);
 
       setIsLoggedIn(true);
+
       await axios.post(`${BACKEND_URL}/api/profiles/resetColumn`, {});
       navigate("/profile");
     } catch (error) {
@@ -47,9 +48,6 @@ const LoginForm = ({ setIsLoggedIn, BACKEND_URL }) => {
         <h2 className="logging__slogan">Ready to start your next adventure?</h2>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form__group">
-            {/* <label htmlFor="email" className="form__label">
-              
-            </label> */}
             <input
               className="form__input"
               type="text"
@@ -60,9 +58,6 @@ const LoginForm = ({ setIsLoggedIn, BACKEND_URL }) => {
             />
           </div>
           <div className="form__group">
-            {/* <label htmlFor="password" className="form__label">
-              Password
-            </label> */}
             <input
               className="form__input"
               type="password"
