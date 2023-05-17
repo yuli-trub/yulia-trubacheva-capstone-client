@@ -74,11 +74,11 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
   const endDate = formatDate(profile.end_date);
   return (
     <>
-      <Link to={`/profiles/${profile.id}`} className=" card__link">
-        <TinderCard
-          className="react-tinder-card"
-          onSwipe={(direction) => onSwipe(direction, profile.id)}
-        >
+      <TinderCard
+        className="react-tinder-card"
+        onSwipe={(direction) => onSwipe(direction, profile.id)}
+      >
+        <Link to={`/profiles/${profile.id}`} className=" card__link">
           <div className="card">
             <img src={profile.avatar} alt="avatar" className="card__avatar" />
             <div className="card__info">
@@ -92,8 +92,9 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
               </p>
             </div>
           </div>{" "}
-        </TinderCard>
-      </Link>{" "}
+        </Link>{" "}
+      </TinderCard>
+
       {/* <p
         className="card__arrow card__arrow--left"
         onClick={() => {

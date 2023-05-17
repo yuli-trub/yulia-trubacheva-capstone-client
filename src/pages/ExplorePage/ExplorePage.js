@@ -149,14 +149,12 @@ const ExplorePage = ({ BACKEND_URL }) => {
           {filteredProfiles &&
             filteredProfiles.map((profile) => {
               return (
-                // <Link to={`/profiles/${profile.id}`} className="card__link">
                 <SwipeCard
                   key={profile.id}
                   profile={profile}
                   getProfiles={getProfiles}
                   BACKEND_URL={BACKEND_URL}
                 />
-                // </Link>
               );
             })}
         </div>
