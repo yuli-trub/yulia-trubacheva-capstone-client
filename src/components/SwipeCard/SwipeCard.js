@@ -1,6 +1,6 @@
 import axios from "axios";
 import "./SwipeCard.scss";
-import { onSwipe } from "react-tinder-card";
+import TinderCard from "react-tinder-card";
 import { Link } from "react-router-dom";
 
 const SwipeCard = ({ profile, BACKEND_URL }) => {
@@ -90,7 +90,6 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
             </div>
           </div>{" "}
         </Link>{" "}
-   
 
       {/* <p
         className="card__arrow card__arrow--left"
