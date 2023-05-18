@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import "./ExplorePage.scss";
 import "./ExplorePage.scss";
 import axios from "axios";
-import SwipeCard from "../../components/SwipeCard/SwipeCard";
-import { Link } from "react-router-dom";
+import SwipeCards from "../../components/SwipeCards/SwipeCards";
+
 
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
@@ -145,7 +145,7 @@ const ExplorePage = ({ BACKEND_URL }) => {
             </div>
           </div>
         </div>
-        <div className="swipe-cards">
+        {/* <div className="swipe-cards">
           {filteredProfiles &&
             filteredProfiles.map((profile) => {
               return (
@@ -157,7 +157,8 @@ const ExplorePage = ({ BACKEND_URL }) => {
                 />
               );
             })}
-        </div>
+        </div> */}
+       {filteredProfiles && <SwipeCards profiles={filteredProfiles} BACKEND_URL={BACKEND_URL}/>}
       </main>
     </>
   );

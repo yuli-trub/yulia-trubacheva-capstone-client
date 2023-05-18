@@ -1,6 +1,6 @@
 import axios from "axios";
 import "./SwipeCard.scss";
-import TinderCard from "react-tinder-card";
+import { onSwipe } from "react-tinder-card";
 import { Link } from "react-router-dom";
 
 const SwipeCard = ({ profile, BACKEND_URL }) => {
@@ -74,12 +74,9 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
   const endDate = formatDate(profile.end_date);
   return (
     <>
-      <TinderCard
-        className="react-tinder-card"
-        onSwipe={(direction) => onSwipe(direction, profile.id)}
-      >
+
         <Link to={`/profiles/${profile.id}`} className=" card__link">
-          <div className="card">
+          <div className="card" onSwipe={(direction) => onSwipe(direction, profile.id)}>
             <img src={profile.avatar} alt="avatar" className="card__avatar" />
             <div className="card__info">
               <h3 className="card__name">{profile.name}</h3>
@@ -93,7 +90,7 @@ const SwipeCard = ({ profile, BACKEND_URL }) => {
             </div>
           </div>{" "}
         </Link>{" "}
-      </TinderCard>
+   
 
       {/* <p
         className="card__arrow card__arrow--left"

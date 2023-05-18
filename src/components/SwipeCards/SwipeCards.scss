@@ -1,18 +1,17 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/typography" as *;
-// .react-tinder-card {
-//   position: absolute;
-//   transform: translate(-50%, -50%);
-//   width: 100%;
-//   max-width: 50rem;
-//   height: 30rem;
-//   border-radius: 10px;
 
-//   overflow: hidden;
-//   background-color: #fff;
-//   transition: transform 0.3s ease-in-out;
-// }
+.swipe-cards {
+  width: 89%;
+  border-radius: 10px;
+  height: 50vh;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
 .card {
   position: relative;
   height: 100%;
@@ -20,7 +19,6 @@
   max-width: 40rem;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-
 
   &__arrow {
     position: absolute;

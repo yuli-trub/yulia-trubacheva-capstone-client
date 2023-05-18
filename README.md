@@ -42,9 +42,9 @@ Create a database with <database name> in mySQL
 
 4.  Create a .env file and add the necessary environment variables.
 
-        JWT_SECRET=
+        JWT_SECRET= <generate your JWT secret>
 
-        FRONTEND_URL=
+        FRONTEND_URL= <your front-end URL>
 
         DB_LOCAL_DBNAME=<database name>
         DB_LOCAL_USER=
