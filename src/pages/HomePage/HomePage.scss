@@ -10,7 +10,7 @@
   overflow: scroll;
 
   &__hero {
-    padding: 3rem 1.6rem;
+    padding: 1rem 1.6rem;
   }
 
   &__subtitle {
@@ -29,21 +29,21 @@
     color: $secondary-text;
     text-align: center;
     font-weight: 500;
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
   &__links {
     @include flex(space-between, center, row);
   }
+
   &__link {
     text-decoration: none;
     @include btn;
-
     box-shadow: 0 0 1rem rgba(black, 0.1), 0rem 1rem 1rem -1rem rgba(black, 0.2);
     width: 40%;
     text-align: center;
+    font-size: 1.6rem;
   }
-  &__about {
-  }
+
   &__description {
     padding: 0 1.6rem;
     font-size: 1.3rem;

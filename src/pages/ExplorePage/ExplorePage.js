@@ -3,14 +3,16 @@ import "./ExplorePage.scss";
 import "./ExplorePage.scss";
 import axios from "axios";
 import SwipeCards from "../../components/SwipeCards/SwipeCards";
+import NoAuthMessage from "../../components/NoAuthMessage/NoAuthMessage";
 
-const ExplorePage = ({ BACKEND_URL }) => {
+const ExplorePage = ({ BACKEND_URL, isLoggedIn }) => {
   const [profiles, setProfiles] = useState(null);
   const [filteredProfiles, setFilteredProfiles] = useState(null);
   const [locations, setLocations] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Get all profiles
   const getProfiles = async () => {
@@ -95,60 +97,71 @@ const ExplorePage = ({ BACKEND_URL }) => {
   };
 
   // Loading
-  if (!profiles && !locations && !filteredProfiles) {
-    return <div className="loader"></div>;
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      setIsLoading(false);
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
-      <main className="explore">
-        <div className="filters">
-          <select
-            value={selectedLocation}
-            onChange={handleSelectChange}
-            className="filters__location"
-          >
-            <option value="">Select a location</option>
-            {locations &&
-              locations.map((location) => (
-                <option key={location.id} value={location.city}>
-                  {location.city}
-                </option>
-              ))}
-          </select>
-          <div className="filters__dates">
-            <div className="filters__container">
-              <label htmlFor="date" className="filters__label">
-                Start Date
-              </label>
-              <input
-                className="filters__date"
-                type="date"
-                value={startDate ? startDate : "Start Date"}
-                onChange={handleStartDateChange}
-                placeholder="Start Date"
-              />
-            </div>
-            <div className="filters__container">
-              <label htmlFor="date" className="filters__label">
-                End Date
-              </label>
+      {isLoading && isLoggedIn && <div className="loader"></div>}
+      {isLoading && !isLoggedIn && <NoAuthMessage />}
+      {!isLoading && (
+        <main className="explore">
+          <>
+            {" "}
+            <div className="filters">
+              <select
+                value={selectedLocation}
+                onChange={handleSelectChange}
+                className="filters__location"
+              >
+                <option value="">Select a location</option>
+                {locations &&
+                  locations.map((location) => (
+                    <option key={location.id} value={location.city}>
+                      {location.city}
+                    </option>
+                  ))}
+              </select>
+              <div className="filters__dates">
+                <div className="filters__container">
+                  <label htmlFor="date" className="filters__label">
+                    Start Date
+                  </label>
+                  <input
+                    className="filters__date"
+                    type="date"
+                    value={startDate ? startDate : "Start Date"}
+                    onChange={handleStartDateChange}
+                    placeholder="Start Date"
+                  />
+                </div>
+                <div className="filters__container">
+                  <label htmlFor="date" className="filters__label">
+                    End Date
+                  </label>
 
-              <input
-                className="filters__date"
-                type="date"
-                value={endDate ? endDate : "End Date"}
-                onChange={handleEndDateChange}
-                placeholder="End Date"
-              />
+                  <input
+                    className="filters__date"
+                    type="date"
+                    value={endDate ? endDate : "End Date"}
+                    onChange={handleEndDateChange}
+                    placeholder="End Date"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-
-        {filteredProfiles && (
-          <SwipeCards profiles={filteredProfiles} BACKEND_URL={BACKEND_URL} />
-        )}
-      </main>
+            {filteredProfiles && (
+              <SwipeCards
+                profiles={filteredProfiles}
+                BACKEND_URL={BACKEND_URL}
+              />
+            )}
+          </>
+        </main>
+      )}
     </>
   );
 };

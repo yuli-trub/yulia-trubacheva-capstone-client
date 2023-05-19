@@ -8,24 +8,6 @@
   scroll-behavior: smooth;
   overflow: scroll;
 
-  &__title {
-  }
-
-  &__auth {
-    padding: 10rem 1.6rem;
-    height: 75vh;
-  }
-
-  &__warn {
-    color: $primary-highlight;
-    text-align: center;
-    font-weight: 500;
-    font-size: 3.2rem;
-  }
-
-  &__button {
-    @include btn;
-  }
   &__data {
     @include flex(center, center, column);
   }

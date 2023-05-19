@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Chat from "../../components/Chat/Chat";
 import { Link } from "react-router-dom";
 import "./ChatPage.scss";
+import NoAuthMessage from "../../components/NoAuthMessage/NoAuthMessage";
 
 const ChatPage = ({ socket, BACKEND_URL, isLoggedIn }) => {
   const [savedFriends, setSavedFriends] = useState(null);
@@ -35,29 +36,25 @@ const ChatPage = ({ socket, BACKEND_URL, isLoggedIn }) => {
     }
   }, []);
 
+  
+  useEffect(() => {
+    if (isLoggedIn) {
+      setIsLoading(false);
+    }
+  }, [isLoggedIn]);
+
   const handleClick = (friendId) => {
     setSelectedChatId(friendId);
     socket.emit("join_room", 1);
     setShowChat(true);
   };
 
-  // Loading
-  if (!savedFriends) {
-    return <div className="loader"></div>;
-  }
-
   return (
     <>
-      {!isLoggedIn && (
-        <div className="profile__auth">
-          <h3 className="profile__warn">Not signed in</h3>
-          <Link to="/login" className="profile__signin">
-            <button className="profile__button">Sign in</button>
-          </Link>
-        </div>
-      )}
+      {isLoading && isLoggedIn && <div className="loader"></div>}
+      {isLoading && !isLoggedIn && <NoAuthMessage />}
 
-      {isLoggedIn && (
+      {!isLoading && (
         <>
           <div className="chats__wrap">
             <h3 className="chats__header">Messages</h3>

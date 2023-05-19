@@ -12,12 +12,14 @@
     top: 0;
     width: 100%;
   }
+
   &__logo {
     font-size: 4.2rem;
     margin: 0;
     font-family: "Berkshire";
     color: $primary-bg;
   }
+
   &__slogan {
     font-size: 2rem;
     margin: 1.6rem auto 2.4rem;
@@ -29,18 +31,22 @@
     @include flex(center, center, row);
     width: 100%;
   }
+
   &__que {
     margin: 0;
   }
+
   &__link {
     text-decoration: none;
     display: inline-block;
     margin-left: 0.8rem;
   }
+
   &__signup {
     margin: 0;
     color: $primary-bg;
     font-weight: bold;
+
     &:hover {
       color: $secondary-bg;
       cursor: pointer;
@@ -57,14 +63,15 @@
     width: 100%;
     padding: 0.8rem 0;
   }
-  &__label {
-  }
+
   &__input {
     @include input;
   }
+
   &__btn {
     @include btn;
   }
+
   &__error {
     color: $primary-highlight;
     margin: 0;

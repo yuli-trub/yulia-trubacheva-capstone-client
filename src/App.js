@@ -115,11 +115,12 @@ function App() {
 
         <Route
           path="/explore"
-          element={<ExplorePage BACKEND_URL={BACKEND_URL} />}
+          element={<ExplorePage BACKEND_URL={BACKEND_URL} isLoggedIn={isLoggedIn}
+         />}
         />
         <Route
           path="/events"
-          element={<EventsPage BACKEND_URL={BACKEND_URL} />}
+          element={<EventsPage BACKEND_URL={BACKEND_URL} isLoggedIn={isLoggedIn}/>}
         />
         <Route path="/events/:id" element={<EventModal />} />
       </Routes>

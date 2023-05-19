@@ -1,0 +1,48 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.auth {
+  padding: 10rem 1.6rem;
+  height: 75vh;
+
+  &__warn {
+    color: $primary-highlight;
+    text-align: center;
+    font-weight: 500;
+    font-size: 3.2rem;
+  }
+
+  &__button {
+    @include btn;
+  }
+  &__link-wrap {
+    @include flex(center, center, row);
+    width: 100%;
+  }
+
+  &__que {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+
+  &__link {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 0.8rem;
+    font-size: 1.4rem;
+
+  }
+
+  &__signup {
+    margin: 0;
+    color: $primary-bg;
+    font-weight: bold;
+    
+    &:hover {
+      color: $secondary-bg;
+      cursor: pointer;
+    }
+  }
+
+}

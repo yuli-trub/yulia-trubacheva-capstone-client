@@ -3,13 +3,17 @@ import "./EventsPage.scss";
 import axios from "axios";
 import SavedEvent from "../../components/SavedEvent/SavedEvent";
 import search from "../../assets/icons/search.svg";
+import NoAuthMessage from "../../components/NoAuthMessage/NoAuthMessage";
 
-const EventsPage = ({ BACKEND_URL }) => {
+
+const EventsPage = ({ BACKEND_URL, isLoggedIn }) => {
   const [events, setEvents] = useState(null);
   const [locations, setLocations] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [eventWasSaved, setEventWasSaved] = useState(false);
   const [searchLocation, setSearchLocation] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
 
   // Get all events
   const getEvents = async () => {
@@ -59,12 +63,17 @@ const EventsPage = ({ BACKEND_URL }) => {
   };
 
   // Loading
-  if (!events && !locations) {
-    return <div className="loader"></div>;
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      setIsLoading(false);
+    }
+  }, [isLoggedIn]);
 
   return (
-    <>
+    <> {isLoading && isLoggedIn && <div className="loader"></div>}
+    {isLoading && !isLoggedIn && <NoAuthMessage />}
+
+    {!isLoading && (
       <main className="events__wrap">
         <section className="search">
           <input
@@ -124,7 +133,7 @@ const EventsPage = ({ BACKEND_URL }) => {
             })}
           </div>
         )}
-      </main>
+      </main>)}
     </>
   );
 };

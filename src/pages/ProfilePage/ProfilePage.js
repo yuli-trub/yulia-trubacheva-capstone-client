@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import "./ProfilePage.scss";
+import NoAuthMessage from "../../components/NoAuthMessage/NoAuthMessage";
+
 const Profile = ({ handleLogout, BACKEND_URL, isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState({});
@@ -29,45 +31,33 @@ const Profile = ({ handleLogout, BACKEND_URL, isLoggedIn }) => {
 
   return (
     <>
-      <div className="profile">
-        {isLoading && isLoggedIn && <div className="loader"></div>}
-        {isLoading && !isLoggedIn && (
-          <div className="profile__auth">
-            <h3 className="profile__warn">Not signed in</h3>
-            <Link to="/login" className="profile__signin">
-              <button className="profile__button">Sign in</button>
-            </Link>
-          </div>
-        )}
-        {!isLoading && (
-          <>
-            <div className="profile__data">
-              <div className="profile__img">
-                <img
-                  src={userData.user.avatar_url}
-                  alt="avatar"
-                  className="profile__avatar"
-                />
-              </div>
-              <div className="profile__info">
-                {" "}
-                <h1 className="profile__name">
-                  {" "}
-                  {userData.user.name}, {userData.user.age}
-                </h1>
-                <p className="profile__info-piece">{userData.user.email}</p>
-                <div className="profile__info-wrap">
-                  <p className="profile__label"> BIO</p>
-                  <p className="profile__info-piece">
-                    {userData.user.bio ||
-                      "Please write something about yourself to share with the rest of the users and make new friends faster"}
-                  </p>
-                </div>{" "}
+      {isLoading && isLoggedIn && <div className="loader"></div>}
+      {isLoading && !isLoggedIn && <NoAuthMessage />}
+      {!isLoading && (
+        <div className="profile">
+          <div className="profile__data">
+            <div className="profile__img">
+              <img
+                src={userData.user.avatar_url}
+                alt="avatar"
+                className="profile__avatar"
+              />
+            </div>
+            <div className="profile__info">
+              <h1 className="profile__name">
+                {userData.user.name}, {userData.user.age}
+              </h1>
+              <p className="profile__info-piece">{userData.user.email}</p>
+              <div className="profile__info-wrap">
+                <p className="profile__label"> BIO</p>
+                <p className="profile__info-piece">
+                  {userData.user.bio ||
+                    "Please write something about yourself to share with the rest of the users and make new friends faster"}
+                </p>
               </div>
             </div>
-          </>
-        )}
-        {isLoggedIn && (
+          </div>
+
           <div className="profile__links">
             <NavLink
               className={({ isActive }) =>
@@ -90,16 +80,16 @@ const Profile = ({ handleLogout, BACKEND_URL, isLoggedIn }) => {
               EVENTS
             </NavLink>
           </div>
-        )}
-        <Outlet />
-        {isLoggedIn && (
+
+          <Outlet />
+
           <Link to="/" className="profile__log-link">
             <p className="profile__logout" onClick={handleLogout}>
               Log out
             </p>
           </Link>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 };
