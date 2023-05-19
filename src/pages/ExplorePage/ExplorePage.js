@@ -4,7 +4,6 @@ import "./ExplorePage.scss";
 import axios from "axios";
 import SwipeCards from "../../components/SwipeCards/SwipeCards";
 
-
 const ExplorePage = ({ BACKEND_URL }) => {
   const [profiles, setProfiles] = useState(null);
   const [filteredProfiles, setFilteredProfiles] = useState(null);
@@ -145,20 +144,10 @@ const ExplorePage = ({ BACKEND_URL }) => {
             </div>
           </div>
         </div>
-        {/* <div className="swipe-cards">
-          {filteredProfiles &&
-            filteredProfiles.map((profile) => {
-              return (
-                <SwipeCard
-                  key={profile.id}
-                  profile={profile}
-                  getProfiles={getProfiles}
-                  BACKEND_URL={BACKEND_URL}
-                />
-              );
-            })}
-        </div> */}
-       {filteredProfiles && <SwipeCards profiles={filteredProfiles} BACKEND_URL={BACKEND_URL}/>}
+
+        {filteredProfiles && (
+          <SwipeCards profiles={filteredProfiles} BACKEND_URL={BACKEND_URL} />
+        )}
       </main>
     </>
   );

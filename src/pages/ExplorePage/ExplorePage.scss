@@ -21,18 +21,6 @@
   }
 }
 
-// .swipe-cards {
-//   width: 89%;
-//   border-radius: 10px;
-//   height: 50vh;
-//   max-width: 400px;
-//   margin: 0 auto;
-//   overflow: hidden;
-//   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-//   margin-bottom: 2rem;
-//   position: relative;
-// }
-
 .explore {
   @include flex(center, center, column);
   padding: 1.6rem;
