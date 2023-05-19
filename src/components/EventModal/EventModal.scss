@@ -13,7 +13,9 @@
     height: 100%;
     z-index: 1000;
     padding: 0 1.6rem 1.6rem;
+    overflow: scroll;
   }
+  
   &__navigate {
     padding: 1.6rem 0;
     &:hover {
@@ -62,6 +64,7 @@
     padding: 1.6rem;
     font-size: 1.2rem;
   }
+
   &__action {
     @include flex(center, center, row);
     border-radius: 50%;

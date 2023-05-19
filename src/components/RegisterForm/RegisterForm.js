@@ -127,7 +127,7 @@ const RegisterForm = ({ setIsRegistered, BACKEND_URL }) => {
           <select
             value={selectedLocation}
             onChange={handleChange}
-            className="form__input"
+            className="form__input form__input--select"
             name="location"
           >
             <option value="">Select a location</option>

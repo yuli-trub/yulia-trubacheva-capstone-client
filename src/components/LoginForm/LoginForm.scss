@@ -4,13 +4,14 @@
 
 .logging {
   &__container {
-    @include flex(center, center, column);
+    @include flex(null, center, column);
     background-color: $bg-light;
     height: 100vh;
     z-index: 100;
     position: absolute;
     top: 0;
     width: 100%;
+    overflow: scroll;
   }
 
   &__logo {
@@ -18,6 +19,7 @@
     margin: 0;
     font-family: "Berkshire";
     color: $primary-bg;
+    margin-top: 2rem;
   }
 
   &__slogan {
@@ -55,7 +57,7 @@
 }
 
 .form {
-  margin: 4rem auto;
+  margin: 0.5rem auto;
   width: 100%;
   padding: 0 1.6rem;
 
@@ -66,6 +68,10 @@
 
   &__input {
     @include input;
+
+    &--select {
+      margin-top: 0.5rem;
+    }
   }
 
   &__btn {
