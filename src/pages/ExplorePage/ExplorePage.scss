@@ -25,9 +25,12 @@
   @include flex(center, center, column);
   padding: 1.6rem;
   overflow-x: hidden;
+  position: relative;
+  overflow: visible;
 
   &__empty{
-    margin: 35% auto;
+    position: absolute;
+    top: 100%;
   }
 
 }
