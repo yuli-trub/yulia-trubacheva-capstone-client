@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./SwipeCards.scss";
+import swipeDirection from "../../assets/icons/swipeDirection.svg";
 
 const SwipeCards = ({ profiles, BACKEND_URL }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -89,20 +90,20 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
     }
   };
 
-     //=====No more profiles - add a notice on the page======
-     const nextIndex = currentIndex + 1;
-     if (nextIndex >= profiles.length) {
-       // Handle end of profiles
-       console.log("No more profiles");
-       return;
-     }
+  //=====No more profiles - add a notice on the page======
+  const nextIndex = currentIndex + 1;
+  if (nextIndex >= profiles.length) {
+    // Handle end of profiles
+    console.log("No more profiles");
+    return;
+  }
 
   const handleClick = (direction, profileId) => {
     const nextIndex = currentIndex + 1;
     const screenWidth = window.innerWidth;
-  const swipeDistance = direction === "right" ? screenWidth : -screenWidth;
+    const swipeDistance = direction === "right" ? screenWidth : -screenWidth;
 
-  setTranslateX(swipeDistance);
+    setTranslateX(swipeDistance);
     if (direction === "right") {
       // Wait for the animation to finish
       setTimeout(() => {
@@ -133,7 +134,6 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
     }
   };
 
-
   const renderProfile = (index) => {
     const profile = profiles[index];
 
@@ -150,6 +150,14 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
 
     return (
       <>
+        <img
+          src={swipeDirection}
+          className="card__arrow card__arrow--left"
+          onClick={() => {
+            handleClick("left", profile.id);
+          }}
+        />
+
         {profile && (
           <Link to={`/profiles/${profile.id}`} className=" card__link">
             <div
@@ -177,22 +185,13 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
           </Link>
         )}
 
-        <p
-          className="card__arrow card__arrow--left"
-          onClick={() => {
-            handleClick("left", profile.id);
-          }}
-        >
-          left
-        </p>
-        <p
+        <img
+          src={swipeDirection}
           className="card__arrow card__arrow--right"
           onClick={() => {
             handleClick("right", profile.id);
           }}
-        >
-          right
-        </p>
+        />
       </>
     );
   };
