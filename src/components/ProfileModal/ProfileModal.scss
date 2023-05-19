@@ -12,6 +12,7 @@
   height: 100%;
   z-index: 1000;
   @include flex(space-between, flex-start, column);
+  overflow: scroll;
 
   &__navigate {
     padding: 1.6rem;
