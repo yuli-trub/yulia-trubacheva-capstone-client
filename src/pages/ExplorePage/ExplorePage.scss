@@ -24,6 +24,12 @@
 .explore {
   @include flex(center, center, column);
   padding: 1.6rem;
+  overflow-x: hidden;
+
+  &__empty{
+    margin: 35% auto;
+  }
+
 }
 
 .filters {

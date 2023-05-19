@@ -110,7 +110,6 @@ const ExplorePage = ({ BACKEND_URL, isLoggedIn }) => {
       {!isLoading && (
         <main className="explore">
           <>
-            {" "}
             <div className="filters">
               <select
                 value={selectedLocation}
@@ -159,6 +158,10 @@ const ExplorePage = ({ BACKEND_URL, isLoggedIn }) => {
                 BACKEND_URL={BACKEND_URL}
               />
             )}
+
+        
+              <p className="explore__empty">No available profiles</p>
+        
           </>
         </main>
       )}

@@ -185,6 +185,7 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
           </Link>
         )}
 
+
         <img
           src={swipeDirection}
           className="card__arrow card__arrow--right"
@@ -192,6 +193,8 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
             handleClick("right", profile.id);
           }}
         />
+
+
       </>
     );
   };
