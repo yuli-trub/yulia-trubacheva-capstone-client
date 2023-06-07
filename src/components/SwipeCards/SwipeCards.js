@@ -9,6 +9,7 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
+ 
 
   const isFriend = async (profileId) => {
     await axios.put(`${BACKEND_URL}/api/profiles/${profileId}`, {

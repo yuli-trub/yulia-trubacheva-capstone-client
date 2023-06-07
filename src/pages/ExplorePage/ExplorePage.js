@@ -17,9 +17,11 @@ const ExplorePage = ({ BACKEND_URL, isLoggedIn }) => {
   // Get all profiles
   const getProfiles = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/api/profiles`);
-    const norSavedProfiles = data.filter((profile) => profile.isSwiped === 0);
-    setProfiles(norSavedProfiles);
-    setFilteredProfiles(norSavedProfiles);
+    console.log(data);
+    // const norSavedProfiles = data.filter((profile) => profile.isSwiped === 0);
+    // console.log(norSavedProfiles);
+    setProfiles(data);
+    setFilteredProfiles(data);
   };
 
   // on mount useEffect
