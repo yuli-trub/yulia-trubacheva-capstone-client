@@ -37,7 +37,6 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
     );
 
     if (existingFriendship) {
-      console.log("The user is already a friend");
       return;
     }
   };
@@ -74,7 +73,6 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
       try {
         isFriend(profileId);
         saveFriend(profileId);
-        console.log("right swipe");
       } catch (error) {
         console.log(error);
       }
@@ -84,7 +82,6 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
 
       try {
         notFriend(profileId);
-        console.log("left");
       } catch (error) {
         console.log(error);
       }
@@ -115,7 +112,6 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
       try {
         isFriend(profileId);
         saveFriend(profileId);
-        console.log("right swipe");
       } catch (error) {
         console.log(error);
       }
@@ -129,7 +125,6 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
 
     try {
       notFriend(profileId);
-      console.log("left");
     } catch (error) {
       console.log(error);
     }
@@ -200,7 +195,7 @@ const SwipeCards = ({ profiles, BACKEND_URL }) => {
     );
   };
 
-  return <div className="swipe-cards">{renderProfile(currentIndex)}</div>;
+  return (<div className="swipe-cards">{renderProfile(currentIndex)}</div>)
 };
 
 export default SwipeCards;

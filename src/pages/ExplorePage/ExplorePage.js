@@ -17,11 +17,9 @@ const ExplorePage = ({ BACKEND_URL, isLoggedIn }) => {
   // Get all profiles
   const getProfiles = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/api/profiles`);
-    console.log(data);
-    // const norSavedProfiles = data.filter((profile) => profile.isSwiped === 0);
-    // console.log(norSavedProfiles);
+    const norSavedProfiles = data.filter((profile) => profile.isSwiped == 0);
     setProfiles(data);
-    setFilteredProfiles(data);
+    setFilteredProfiles(norSavedProfiles);
   };
 
   // on mount useEffect
@@ -51,7 +49,7 @@ const ExplorePage = ({ BACKEND_URL, isLoggedIn }) => {
 
   const handleSelectChange = (event) => {
     const location = event.target.value;
-    console.log(event.target);
+
     setSelectedLocation(location);
     handleFilterChange(location);
   };

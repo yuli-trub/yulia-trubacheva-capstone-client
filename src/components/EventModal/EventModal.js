@@ -26,7 +26,6 @@ const EventModal = ({ BACKEND_URL }) => {
   const saveEvent = async () => {
     const saveUserEvent = async () => {
       const authToken = sessionStorage.getItem("authToken");
-      console.log(authToken);
       await axios.post(`${BACKEND_URL}/api/users/events/${eventId}`, null, {
         headers: {
           authorisation: `Bearer ${authToken}`,
@@ -48,7 +47,6 @@ const EventModal = ({ BACKEND_URL }) => {
   const unsaveEvent = async () => {
     const deleteUserEvent = async () => {
       const authToken = sessionStorage.getItem("authToken");
-      console.log(authToken);
       await axios.delete(`${BACKEND_URL}/api/users/events/${eventId}`, {
         headers: {
           authorisation: `Bearer ${authToken}`,

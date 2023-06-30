@@ -18,10 +18,16 @@ import "./App.scss";
 
 import io from "socket.io-client";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const SOCKET_URL = process.env.REACT_APP_SOCKET_URL;
 
-const socket = io.connect("http://localhost:8081", {
-  transports: ["websocket"],
-});
+let socket;
+if (SOCKET_URL) {
+  socket = io.connect(SOCKET_URL, {
+    transports: ["websocket"],
+  });
+} else {
+  socket = io();
+}
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,7 +45,6 @@ function App() {
   const handleLogout = () => {
     sessionStorage.removeItem("authToken");
     setIsLoggedIn(false);
-    console.log("logged out");
   };
 
   return (
@@ -115,12 +120,15 @@ function App() {
 
         <Route
           path="/explore"
-          element={<ExplorePage BACKEND_URL={BACKEND_URL} isLoggedIn={isLoggedIn}
-         />}
+          element={
+            <ExplorePage BACKEND_URL={BACKEND_URL} isLoggedIn={isLoggedIn} />
+          }
         />
         <Route
           path="/events"
-          element={<EventsPage BACKEND_URL={BACKEND_URL} isLoggedIn={isLoggedIn}/>}
+          element={
+            <EventsPage BACKEND_URL={BACKEND_URL} isLoggedIn={isLoggedIn} />
+          }
         />
         <Route path="/events/:id" element={<EventModal />} />
       </Routes>
