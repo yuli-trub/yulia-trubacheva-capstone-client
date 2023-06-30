@@ -17,9 +17,27 @@ const ExplorePage = ({ BACKEND_URL, isLoggedIn }) => {
   // Get all profiles
   const getProfiles = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/api/profiles`);
-    const norSavedProfiles = data.filter((profile) => profile.isSwiped == 0);
-    setProfiles(data);
-    setFilteredProfiles(norSavedProfiles);
+
+    // get authenticated user to filter by it
+
+    const authToken = sessionStorage.getItem("authToken");
+
+    const { data: userData } = await axios.get(
+      `${BACKEND_URL}/api/users/profile`,
+      {
+        headers: {
+          authorisation: `Bearer ${authToken}`,
+        },
+      }
+    );
+  
+
+    const filterProfiles = data.filter(
+      (profile) => profile.isSwiped == 0 && profile.id != userData.profileId
+    );
+
+    setProfiles(filterProfiles);
+    setFilteredProfiles(filterProfiles);
   };
 
   // on mount useEffect
@@ -159,9 +177,7 @@ const ExplorePage = ({ BACKEND_URL, isLoggedIn }) => {
               />
             )}
 
-        
-              <p className="explore__empty">No available profiles</p>
-        
+            <p className="explore__empty">No available profiles</p>
           </>
         </main>
       )}
